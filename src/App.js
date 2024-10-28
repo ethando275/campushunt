@@ -7,6 +7,9 @@ import Login from "./components/Login";
 import HomePage from "./pages/HomePage";
 import Customize from "./pages/Customize";
 import Images from "./pages/Images";
+import ManageUsers from "./pages/ManageUsers";
+import UniversityGamePage from "./pages/UniversityGamePage";
+import AllGamePages from "./pages/AllGamePages";
 
 const App = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
@@ -83,8 +86,12 @@ const App = () => {
             </>
           }
         />
+        <Route path="/dashboard" element={<HomePage />} />
         <Route path="/customize" element={<Customize />} />
         <Route path="/images" element={<Images />} />
+        <Route path="/manage_users" element = {<ManageUsers />} />
+        <Route path="/university_game_page" element={<UniversityGamePage />} />
+        <Route path="/all_game_pages" element={<AllGamePages />} />
       </Routes>
     </div>
   );

@@ -6,7 +6,7 @@ import universityGamePage from "../assets/university_game_page.png";
 import allGamePages from "../assets/all_game_pages.png";
 import logOut from "../assets/log_out.png";
 import campusHunt from "../assets/campushunt.png";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
 // Names of tabs
@@ -32,6 +32,24 @@ const tabLogos = [
 ];
 
 function NavBar({ onSelectTab, selectedTab }) {
+  const navigate = useNavigate();
+
+  // Handle Logout Logic
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    navigate("/"); // Navigate to the login page
+    window.location.reload(); // Force a reload to reset the state
+  };
+
+  const handleTabClick = (tab) => {
+    if (tab === "Log Out") {
+      handleLogout(); // Trigger logout
+    } else {
+      onSelectTab(tab);
+      navigate(`/${tab.toLowerCase().replace(/ /g, "_")}`); // Navigate to the selected tab
+    }
+  };
+
   return (
     <div className="nav-bar">
       <ul className="list-group">
@@ -42,19 +60,11 @@ function NavBar({ onSelectTab, selectedTab }) {
             // Highlight active tab based on selectedTab
             className={`list-group-item ${selectedTab === tab ? "active" : ""}`}
             key={tab}
-            // Updates the selected tab, except for Log Out
-            onClick={() => onSelectTab(tab)}
+            // Handle the click event for the entire tab (li element)
+            onClick={() => handleTabClick(tab)}
           >
             <img className="logo" src={tabLogos[index]} alt={`${tab} logo`} />
-            {tab === "Log Out" ? (
-              <button className="nav-link logout-button">
-                {tab}
-              </button>
-            ) : (
-              <NavLink className="nav-link" to={`/${tab.toLowerCase()}`}>
-                {tab}
-              </NavLink>
-            )}
+            <span className="nav-link">{tab}</span>
           </li>
         ))}
       </ul>

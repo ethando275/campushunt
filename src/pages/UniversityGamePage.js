@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import "./HomePage.css";
 
-const Customize = ({ onLogout }) => {
+const UniversityGamePage = ({ onLogout }) => {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("Dashboard");
 
   useEffect(() => {
-    setSelectedTab("Customize");
+    setSelectedTab("University Game Page");
   }, []); // Reset selectedTab when the component mounts
 
   const handleLogout = () => {
@@ -31,10 +31,10 @@ const Customize = ({ onLogout }) => {
         {/* Pass selectedTab */}
       </div>
       <div className="right">
-        customize
+        tigerspot
       </div>
     </div>
   );
 };
 
-export default Customize;
+export default UniversityGamePage;
