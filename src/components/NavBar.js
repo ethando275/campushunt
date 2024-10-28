@@ -6,6 +6,7 @@ import universityGamePage from "../assets/university_game_page.png";
 import allGamePages from "../assets/all_game_pages.png";
 import logOut from "../assets/log_out.png";
 import campusHunt from "../assets/campushunt.png";
+import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
 // Names of tabs
@@ -45,7 +46,7 @@ function NavBar({ onSelectTab, selectedTab }) {
             onClick={() => onSelectTab(tab)}
           >
             <img className="logo" src={tabLogos[index]} alt={`${tab} logo`} />
-            {tab}
+            <NavLink className="nav-link" to={`/${tab.toLowerCase()}`}>{tab}</NavLink>
           </li>
         ))}
       </ul>
