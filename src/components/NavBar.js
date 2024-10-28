@@ -42,11 +42,19 @@ function NavBar({ onSelectTab, selectedTab }) {
             // Highlight active tab based on selectedTab
             className={`list-group-item ${selectedTab === tab ? "active" : ""}`}
             key={tab}
-            // Updates the selected tab
+            // Updates the selected tab, except for Log Out
             onClick={() => onSelectTab(tab)}
           >
             <img className="logo" src={tabLogos[index]} alt={`${tab} logo`} />
-            <NavLink className="nav-link" to={`/${tab.toLowerCase()}`}>{tab}</NavLink>
+            {tab === "Log Out" ? (
+              <button className="nav-link logout-button">
+                {tab}
+              </button>
+            ) : (
+              <NavLink className="nav-link" to={`/${tab.toLowerCase()}`}>
+                {tab}
+              </NavLink>
+            )}
           </li>
         ))}
       </ul>
