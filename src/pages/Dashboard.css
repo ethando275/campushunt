@@ -1,0 +1,31 @@
+/* Overall dashboard container */
+.dashboard {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align the header and date to the left */
+    margin: 0 !important;
+    max-width: 1200px;
+    padding-top: 20px !important;
+    padding-bottom: 0px !important;
+  }
+  
+  /* Main content section (stats and charts) */
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important; /* Center the stats and charts */
+    align-content: center !important;
+    width: 100%;
+    margin-top: 20px; /* Add spacing from the header */
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .dashboard {
+      padding: 10px;
+    }
+    .main-content {
+      width: 100%; /* Ensure full width on small screens */
+    }
+  }
+  

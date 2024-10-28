@@ -1,0 +1,51 @@
+/* Gradient background for the right half of the screen */
+.background {
+  flex: 1;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(90deg, #9984d4, #0d0149); /* Gradient from blue to purple */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  position: relative; /* Positioning context for absolutely positioned children */
+  overflow: hidden; /* Prevents overflow of the image */
+}
+
+.background-image {
+  position: absolute; /* Position the image absolutely within the parent */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-35%, -65%); /* Adjust position to center */
+  z-index: 1; /* Ensure the image is behind the text */
+  width: 110%;
+  height: auto; /* Maintain aspect ratio */
+}
+
+h2 {
+  position: relative; /* Keep the text on top of the image */
+  z-index: 2; /* Ensure text is above the image */
+  margin: 0; /* Remove default margin */
+  font-size: 2rem; /* Change the font size for h2 */
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+h3 {
+  width: 30ch; /* 30 characters wide */
+  overflow-wrap: break-word;
+  position: relative; /* Keep the text on top of the image */
+  z-index: 2; /* Ensure text is above the image */
+  margin: 0; /* Remove default margin */
+  font-size: 1rem !important; /* Change the font size for h3 */
+  margin-top: 20px !important;
+  font-family: 'Montserrat', sans-serif !important;
+
+}
+
+.container {
+  display: flex;              /* Use flexbox */
+  flex-direction: column;     /* Arrange items in a column */
+  justify-content: center;
+  align-items: center;        /* Center items horizontally */
+}

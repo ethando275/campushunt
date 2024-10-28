@@ -1,0 +1,40 @@
+.nav-bar {
+    background-color: #0d0149;
+    height: 100vh;
+    width: 100%;
+}
+
+.list-group {
+    padding-top: 3vh !important;
+    align-items: center !important;
+}
+
+.list-group-item {
+    padding-top: 1px !important;
+    display: flex !important;
+    background-color: #0d0149 !important;
+    color: white !important;
+    border-right: none !important;
+    border-left: none !important;
+    border-radius: 0% !important;
+    align-items: center !important;
+    height: 8vh !important;
+    font-size: 1rem !important;
+}
+
+.list-group-item.active {
+    background-color: #9984d4 !important;
+    border-color: white !important; 
+}
+
+/* Rules for Images */
+.logo {
+    width: 30% !important;
+    height: auto !important;
+}
+
+.campushunt {
+    padding-bottom: 4vh;
+    width: 90% !important;
+    height: auto !important;
+}

@@ -1,0 +1,86 @@
+/* Container for the date selector */
+.date-selector {
+  display: flex;
+  justify-content: center; /* Center the list group horizontally */
+  padding: 5px; /* Reduced padding for less height */
+  margin: 0 20px; /* Margin on left and right for consistent spacing */
+  flex: 1; /* Allow it to take available width in the right section */
+  height: auto !important; /* Set to auto to match the height of the date-container */
+}
+
+.date-container {
+  padding: 5px; /* Reduced padding for less height */
+  margin: 0 35px !important; /* Margin on left and right for consistent spacing */
+  border: 2px solid rgb(159, 156, 156); /* Border around the entire group */
+  border-radius: 20px; /* Rounded corners */
+  background-color: #bba5fb; /* Background color for the container */
+  display: flex; /* Use flexbox for inner layout */
+  align-items: center; /* Align items vertically centered */
+  justify-content: center; /* Center items horizontally */
+  height: 5vh; /* Dynamic height based on content */
+}
+
+/* Horizontal list group */
+.date-horizontal {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center; /* Center items within the date container */
+  align-items: center;
+}
+
+/* Active state for selected date item */
+.date-item.active {
+  background-color: #0d0149;
+  border-color: white;
+  color: white;
+}
+
+/* List group item styles */
+.date-item {
+  width: 12vh !important; /* Fixed width for all items */
+  height: 2vw !important; /* Adjusted height for a smaller item */
+  text-align: center;
+  line-height: 25px; /* Vertically center the text within the item */
+  color: #0d0149;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: 1px solid transparent; /* Set a transparent border */
+  border-radius: 20px; /* Rounded corners */
+  background-color: transparent; /* Transparent background */
+  transition: background-color 0.3s ease-in-out;
+  margin: 0 10px; /* Adjust margins to ensure spacing */
+  padding: 2px 0; /* 5px padding top and bottom, 0 left and right */
+}
+
+/* Hover effect */
+.date-item:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+/* Remove margin from the first item */
+.date-item:first-child {
+  margin-left: 0; /* Remove left margin for the first item */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .date-item {
+      width: 70px; /* Decrease the width on smaller screens */
+      font-size: 0.7rem; /* Smaller font size for better fit */
+  }
+}
+
+@media (max-width: 480px) {
+  .date-item {
+      width: 100%; /* Make each date item take full width on very small screens */
+      margin: 5px 0; /* Adjust margin for spacing */
+  }
+
+  .date-horizontal {
+      flex-direction: column; /* Stack items vertically */
+      align-items: stretch; /* Make items stretch to full width */
+  }
+}

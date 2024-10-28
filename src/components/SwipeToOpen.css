@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Parent container that holds both the logo and the swipe area */
+.swipe-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontally center */
+    justify-content: center; /* Vertically center */
+    height: 100vh; /* Full viewport height to allow vertical centering */
+  }
+  
+  /* Static ball container (fixed size) */
+  .ball-container {
+    width: 250px; /* Fixed container width */
+    height: 60px; /* Height to fit the ball */
+    background-color: #ffffff; /* Gray background */
+    border-radius: 35px; /* Rounded corners */
+    border: 2px solid black;
+    position: relative; /* For ball positioning */
+    display: flex;
+    align-items: center; /* Vertically center the ball */
+    justify-content: flex-start; /* Start the ball at the left */
+    margin: 20px 0; /* Space between logo and ball container */
+    overflow: hidden; /* Hide overflow if necessary */
+  }
+  
+  /* Movable ball inside the static container */
+  .ball {
+    width: 50px; /* Ball size */
+    height: 50px;
+    background-color: black; 
+    border-radius: 50%; /* Circular shape */
+    position: absolute; /* Absolute to move inside the container */
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the ball */
+    cursor: pointer;
+    transition: transform 0.2s ease; /* Smooth transitions */
+  }
+  
+  .campuslogo {
+    width: 125px !important;
+    height: auto !important;
+  }
+
+  h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1  {
+    color: #000; /* Default text color */
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: bold !important;
+    font-size: 3rem !important; /* Default font size */
+  }

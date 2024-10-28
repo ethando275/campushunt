@@ -1,38 +1,49 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Global screen layout */
+.screen {
+    display: flex;
+    height: 100vh; /* Full viewport height */
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  /* Left half of the screen */
+  .left-half {
+    flex: 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background-color: #fff !important; /* Default background */
   }
-  to {
-    transform: rotate(360deg);
+  
+  /* Right half of the screen */
+  .right-half {
+    flex: 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
-}
+  
+  /* Change background color to black when login is visible */
+  .black-background {
+    background-color: black !important; /* Change background to black */
+  }
+  
+  /* Override left-half background color when login is visible */
+  .black-background .left-half {
+    background-color: black !important; /* Change left half background to black */
+  }
+
+  .back-button {
+    position: absolute; /* Keep it positioned absolutely */
+    top: 20px; /* Distance from the top */
+    left: 20px; /* Distance from the left */
+    z-index: 10; /* Ensure it's above other content */
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+    cursor: pointer; /* Change cursor to pointer */
+    font-size: 16px; /* Adjust font size for text */
+    color: #fff; /* Set the color of the text, adjust as needed */
+  }
+
+  
+  
+  

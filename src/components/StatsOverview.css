@@ -1,0 +1,67 @@
+/* General wrapper for stats overview section */
+.stats-overview {
+  display: flex; /* Aligns items horizontally */
+  flex-wrap: wrap; /* Allows the items to wrap when the screen is small */
+  justify-content: center; /* Center the items */
+  gap: 10px; /* Space between items */
+  margin: 10px 25px; /* Add margin for the overview */
+  flex: 1; /* Take full width of the right flex box */
+}
+
+/* Individual stat card */
+.stat-card {
+  background-color: #f5f5f5; /* Light background color */
+  border: 2px solid #e0e0e0; /* Border color */
+  border-radius: 15px; /* Rounded corners */
+  width: calc(25% - 20px); /* Default for larger screens */
+  height: auto; /* Allow height to adjust based on content */
+  min-width: 200px; /* Minimum width */
+  max-width: 300px; /* Optional: cap the max width */
+  padding: 25px 10px; /* Adjust padding for better spacing */
+  text-align: center; /* Center-align the text */
+  margin: 10px; /* Add some space between the cards */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+/* Hover effect for stat card */
+.stat-card:hover {
+  transform: translateY(-5px); /* Slight upward movement on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .stat-card {
+    width: calc(33.33% - 20px); /* Three cards per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-card {
+    width: calc(50% - 20px); /* Two cards per row */
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card {
+    width: 100%; /* Full width for small screens */
+    max-width: none; /* Remove max width */
+  }
+}
+
+/* Styling for stat values */
+.stat-card h3 {
+  font-size: 1.5rem; /* Bigger value text */
+  max-width: 100%; /* Make sure the text doesn't overflow */
+}
+
+/* Styling for arrows (▲▼) */
+.stat-card span.increase {
+  color: green;
+  font-weight: bold;
+}
+
+.stat-card span.decrease {
+  color: red;
+  font-weight: bold;
+}

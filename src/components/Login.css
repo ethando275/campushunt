@@ -1,0 +1,84 @@
+/* Login screen */
+.login-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+  }
+  
+  .login-screen h1 {
+    margin-bottom: 20px;
+  }
+  
+  .login-screen form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+  }
+  
+  .login-screen label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+    /* Ensure label sits above the input */
+    display: block; /* Ensures label takes full width */
+  }
+  
+  .login-screen input {
+    width: 300px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px; /* Ensure consistent input height */
+  }
+  
+  .login-screen button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #9984d4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-screen button:hover {
+    background-color: #9174e2;
+  }
+  
+  /* Default styles for h1 */
+  h1 {
+    color: #000; /* Default text color */
+    font-family: Arial, sans-serif; /* Default font */
+    font-size: 2rem; /* Default font size */
+  }
+  
+  /* Change styles when login is visible */
+  .black-background h1 {
+    color: white; /* Change text color to white when background is black */
+    font-family: 'Helvetica Neue', sans-serif; /* Change font family */
+  }
+  
+  .alert {
+    position: absolute; /* Keep it positioned absolutely */
+    top: 20px; /* Distance from the top */
+    left: 20px; /* Distance from the left */
+    z-index: 100; /* Ensure it's above other content */
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+    cursor: pointer; /* Change cursor to pointer */
+    font-size: 16px; /* Adjust font size for text */
+  }
+
+  .campusicon {
+    width: 125px !important;
+    height: auto !important;
+  }
+  
+  
+  
+  
