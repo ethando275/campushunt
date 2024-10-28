@@ -6,6 +6,7 @@ import Background from "./components/Background";
 import Login from "./components/Login";
 import HomePage from "./pages/HomePage";
 import Customize from "./pages/Customize";
+import Images from "./pages/Images";
 
 const App = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
@@ -83,6 +84,7 @@ const App = () => {
           }
         />
         <Route path="/customize" element={<Customize />} />
+        <Route path="/images" element={<Images />} />
       </Routes>
     </div>
   );
