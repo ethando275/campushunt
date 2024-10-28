@@ -38,3 +38,9 @@
     width: 90% !important;
     height: auto !important;
 }
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+}
+
