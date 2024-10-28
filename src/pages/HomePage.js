@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import "./HomePage.css";
 import Dashboard from "./Dashboard";
+import Images from "./Images";
 
 const HomePage = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const HomePage = ({ onLogout }) => {
       </div>
       <div className="right">
         {selectedTab === "Dashboard" && <Dashboard />}
+        {selectedTab === "Images" && <Images />}
 
         {/* Add other components here based on selectedTab */}
       </div>
