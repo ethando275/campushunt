@@ -1,11 +1,12 @@
 .drag-drop-zone {
-    border: 2px dashed #6c757d;
+    border: 2px dashed black; /* Changed border color to black */
     border-radius: 10px;
     padding: 20px;
     color: #6c757d;
     cursor: pointer;
     text-align: center;
     margin-bottom: 10px;
+    margin-left: 20px;
 }
 
 .drag-drop-zone:hover {
@@ -24,3 +25,17 @@
     border-radius: 5px;
 }
 
+.file-upload-button {
+    padding: 10px 20px; /* Adjust padding for smaller size */
+    font-size: 0.875rem; /* Smaller font size */
+    height: 15vh;
+    width: 15vh;
+    background-color: rgb(193, 193, 193) !important;
+    border: 2px solid #6c757d !important;
+    border-radius: 10px !important; /* Adds rounded corners */
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-button:hover {
+    background-color: rgb(150, 150, 150) !important; /* Darker gray on hover */
+}

@@ -5,7 +5,7 @@ import "./HomePage.css";
 
 const UniversityGamePage = ({ onLogout }) => {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState("Dashboard");
+  const [selectedTab, setSelectedTab] = useState("University Game Page");
 
   useEffect(() => {
     setSelectedTab("University Game Page");

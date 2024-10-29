@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import "./HomePage.css";
-import FileUpload from "../components/FileUpload";
+import "./Images.css";
+import SquareImageGrid from "../components/SquareImageGrid"; 
+import campushunt from "../assets/campushunt.png";
 
 const Images = ({ onLogout }) => {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState("Dashboard");
+  const [selectedTab, setSelectedTab] = useState("Images");
 
   useEffect(() => {
     setSelectedTab("Images");
@@ -25,14 +27,22 @@ const Images = ({ onLogout }) => {
     }
   };
 
+  const images = [
+    { src: campushunt, alt: 'Image 1' },
+    
+
+
+    
+    // Add more images as needed
+];
+
   return (
     <div className="screen">
       <div className="left">
-        <NavBar onSelectTab={handleSelectTab} selectedTab={selectedTab} />{" "}
-        {/* Pass selectedTab */}
+        <NavBar onSelectTab={handleSelectTab} selectedTab={selectedTab} />
       </div>
       <div className="right">
-        <FileUpload />
+          <SquareImageGrid images={images}/>
       </div>
     </div>
   );

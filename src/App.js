@@ -10,6 +10,7 @@ import Images from "./pages/Images";
 import ManageUsers from "./pages/ManageUsers";
 import UniversityGamePage from "./pages/UniversityGamePage";
 import AllGamePages from "./pages/AllGamePages";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
@@ -86,7 +87,7 @@ const App = () => {
             </>
           }
         />
-        <Route path="/dashboard" element={<HomePage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/customize" element={<Customize />} />
         <Route path="/images" element={<Images />} />
         <Route path="/manage_users" element = {<ManageUsers />} />
