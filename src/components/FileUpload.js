@@ -16,8 +16,11 @@ const FileUpload = () => {
 
     const handleInputChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
-        const newFiles = selectedFiles.map((file) => ({ file, preview: URL.createObjectURL(file) }));
-        setFiles([...files, ...newFiles]);
+        const newFiles = selectedFiles.map((file) => ({
+            file,
+            preview: URL.createObjectURL(file),
+        }));
+        setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     };
 
     const handleCaptionChange = (index, value) => {
@@ -25,37 +28,45 @@ const FileUpload = () => {
     };
 
     const handleUpload = () => {
-        // Here you can handle the upload logic, such as sending files and captions to a server
         alert("Files and captions submitted!");
+        handleClose(); // Close the modal and reset states
     };
 
     return (
         <>
-            {/* Trigger Button */}
-            <Button variant="primary" onClick={handleShow}>
-                Upload Files
+            <Button variant="secondary" onClick={handleShow} className="file-upload-button">
+                <img className="" src="https://img.icons8.com/ios/50/000000/upload-to-cloud.png" alt="Upload" />
             </Button>
 
-            {/* Modal Component */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Upload Your Files</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div
-                        className="drag-drop-zone"
-                        onClick={() => document.getElementById('fileInput').click()}
-                    >
-                        Drag and drop your files here or click to upload
+                    <div className="drag-drop-zone" onClick={() => document.getElementById('fileInput').click()}>
+                        Click to upload individual files
                     </div>
                     <input
-                        type="file" webkitdirectory="" directory=""
+                        type="file"
                         id="fileInput"
                         multiple
                         accept="image/*"
                         onChange={handleInputChange}
                         style={{ display: 'none' }}
                     />
+
+                    <div className="drag-drop-zone" onClick={() => document.getElementById('folderInput').click()}>
+                        Click to upload a folder
+                    </div>
+                    <input
+                        type="file"
+                        id="folderInput"
+                        multiple
+                        webkitdirectory="true"
+                        onChange={handleInputChange}
+                        style={{ display: 'none' }}
+                    />
+
                     <ul className="file-list mt-3">
                         {files.map((fileObj, index) => (
                             <li key={index} className="d-flex align-items-center mb-3">

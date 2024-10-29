@@ -5,7 +5,7 @@ import "./HomePage.css";
 
 const AllGamePages = ({ onLogout }) => {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState("Dashboard");
+  const [selectedTab, setSelectedTab] = useState("All Game Pages");
 
   useEffect(() => {
     setSelectedTab("All Game Pages");

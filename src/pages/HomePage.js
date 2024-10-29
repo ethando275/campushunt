@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import "./HomePage.css";
-import Dashboard from "./Dashboard";
 
 const HomePage = ({ onLogout }) => {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState("Dashboard");
+  const [selectedTab, setSelectedTab] = useState("");
 
   useEffect(() => {
-    setSelectedTab("Dashboard");
+    setSelectedTab("");
   }, []); // Reset selectedTab when the component mounts
 
   const handleLogout = () => {
@@ -32,9 +31,7 @@ const HomePage = ({ onLogout }) => {
         {/* Pass selectedTab */}
       </div>
       <div className="right">
-        {selectedTab === "Dashboard" && <Dashboard />}
-
-        {/* Add other components here based on selectedTab */}
+        Home Page
       </div>
     </div>
   );

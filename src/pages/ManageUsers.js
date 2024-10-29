@@ -5,7 +5,7 @@ import "./HomePage.css";
 
 const ManageUser = ({ onLogout }) => {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState("Dashboard");
+  const [selectedTab, setSelectedTab] = useState("Manage Users");
 
   useEffect(() => {
     setSelectedTab("Manage Users");

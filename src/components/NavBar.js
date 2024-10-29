@@ -6,7 +6,7 @@ import universityGamePage from "../assets/university_game_page.png";
 import allGamePages from "../assets/all_game_pages.png";
 import logOut from "../assets/log_out.png";
 import campusHunt from "../assets/campushunt.png";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
 // Names of tabs
@@ -53,7 +53,9 @@ function NavBar({ onSelectTab, selectedTab }) {
   return (
     <div className="nav-bar">
       <ul className="list-group">
+        <NavLink to="/home">
         <img className="campushunt" src={campusHunt} alt="Campus Hunt Logo" />
+        </NavLink>
         {/* Function that goes through each tab */}
         {tabs.map((tab, index) => (
           <li

@@ -1,4 +1,40 @@
-.upload-file {
-    left: 20px !important;
-    top: 20px;
-}
+/* Add this to your existing CSS file */
+
+.file-upload-container {
+    display: flex;
+    justify-content: left; /* Center horizontally */
+    height: 100vh; /* Set a height that suits your design */
+    padding: 20px; /* Add some padding */
+    width: 100vw; /* Set a width that suits your design */
+  }
+  
+  /* Global screen layout */
+.screen {
+    display: flex !important;
+    height: 100vh !important; /* Full viewport height */
+    width: 100vw !important; /* Full viewport width */
+  }
+  
+  /* Left side of the screen */
+  .left {
+    flex: 1 !important; /* Change to flex: 1 */
+    display: flex !important;
+    justify-content: left !important;
+    align-items: left !important;
+    padding: 0px !important;
+  }
+  
+  /* Right side of the screen */
+  .right {
+    flex: 5 !important; /* Change to flex: 3 */
+    display: flex !important;
+    padding: 0px !important;
+  }
+  
+  /* Centering elements in statboxes */
+  .statboxes {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
