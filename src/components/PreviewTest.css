@@ -1,34 +1,10 @@
-/* Global screen layout */
-.screen {
-    display: flex !important;
-    height: 100vh !important; /* Full viewport height */
-    width: 100vw !important; /* Full viewport width */
-  }
-  
-  /* Left side of the screen */
-  .left {
-    flex: 1 !important; /* Change to flex: 1 */
-    display: flex !important;
-    justify-content: left !important;
-    align-items: left !important;
-    padding: 0px !important;
-  }
-  
-  /* Right side of the screen */
-  .right {
-    flex: 5 !important; /* Change to flex: 3 */
-    display: flex !important;
-    padding: 0px !important;
-  }  
-
 /* Website-Wide Styles */
 .body {
     font-family: sans-serif;
     margin: 0;
-    margin-top: 12vh;
     padding: 0;
-    background-color: orange !important;
-    /* box-sizing: border-box; */
+    background-color: orange;
+    box-sizing: border-box;
   }
   
   .text {
@@ -184,7 +160,7 @@
     align-items: center;
     position: fixed;
     top: 0;
-    width: 83vw; /* Adjusted width to accommodate border */
+    width: 97%; /* Adjusted width to accommodate border */
     background-color: white;
     border: 0.6vw solid black;
     padding: 1vh 1vw;

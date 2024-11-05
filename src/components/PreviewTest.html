@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+    <link rel="stylesheet" href="src/components/PreviewTest.css" />
+    <style>
+      #username {
+            height: 50vh;
+            width: 50.5%; 
+            margin-left: auto;
+            margin-right: auto;
+            padding: 2vh 2vw;
+        }
+
+    </style>
+  </head>
+  <div class="body">
+    <div class="page">
+
+      <header class="mainmenu-header">
+				<nav id="navbar">
+					<div class="home-icon">
+						<a href="/menu"
+							><img
+								src="static\styles\home.png"
+								alt="Home Page"
+								width="150"
+								height="50"
+						/></a>
+					</div>
+					<div class="nav-icons">
+					</button>
+					</a>
+						<a href="/rules">
+							<div class="nav-item">
+								<img src="static\styles\questionmark.png" alt="Rules" />
+								<span id="orange-rules">Rules</span>
+							</div>
+						</a>
+						<a href="/requests">
+							<div class="nav-item">
+								<img src="static\styles\requests.png" alt="Requests" />
+								<span id="orange-vs">Versus</span>
+							</div>
+						</a>
+						<a href="/leaderboard">
+							<div class="nav-item">
+								<img src="static\styles\trophy.png" alt="Leaderboard" />
+								<span data-alttext="Leader board"><span id="orange-board">Leaderboard</span></span>
+							</div>
+						</a>
+						<a href="/team">
+							<div class="nav-item">
+								<img src="static\styles\team.png" alt="Meet the Team" />
+								<span id="orange-team">Meet the Team</span>
+							</div>
+						</a>
+						<a href="logoutcas">
+							<div class="nav-item">
+								<img src="static\styles\logout.png" alt="Logout" />
+								<span>Log Out</span>
+							</div>
+						</a>
+					</div>
+			</nav>
+	
+      </header>
+
+
+      <input type = "hidden" id="username" name = "username" value ="{{username}}">
+      <main class="mainmenu">
+        <div class="home">
+          <img class="logo" src="static\styles\logo.png" alt="Logo" />
+          <p>
+            <b class="text">
+              Hello {{username}}. Think you have what it takes to “spot” where a Princeton landmark
+              is? Test your skills with Tiger Spot and land yourself at the top
+              of the leaderboard!
+            </b>
+          </p>
+          <a href="/game">
+          <button class="button">
+            <b>Play the Daily!</b>
+          </button>
+          </a>
+        </div>
+      </main>
+    </div>
+  </div>
+</html>
+<script>
