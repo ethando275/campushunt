@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import "./ManageUsers.css";
+import React, { useState } from "react";
+import "./Preview.css";
 import Logo from "../assets/logo.png";
 import Home from "../assets/home.png";
 import QuestionMark from "../assets/questionmark.png";
@@ -10,35 +8,11 @@ import Trophy from "../assets/trophy.png";
 import Team from "../assets/team.png";
 import LogOut from "../assets/logout.png";
 
-const ManageUser = ({ onLogout }) => {
-  const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState("Manage Users");
+function Preview() {
 
-  useEffect(() => {
-    setSelectedTab("Manage Users");
-  }, []); // Reset selectedTab when the component mounts
-
-  const handleLogout = () => {
-    onLogout();
-    navigate("/");
-  };
-
-  const handleSelectTab = (tab) => {
-    if (tab === "Log Out") {
-      handleLogout();
-    } else {
-      setSelectedTab(tab);
-    }
-  };
-
-  return (
-    <div className="screen">
-      <div className="left">
-        <NavBar onSelectTab={handleSelectTab} selectedTab={selectedTab} />{" "}
-        {/* Pass selectedTab */}
-      </div>
-      <div className="right">
-        <nav id="navbar">
+	return (
+		<>
+    <nav id="navbar">
           <div className="home-icon">
             <a href="/menu"
               ><img
@@ -96,9 +70,9 @@ const ManageUser = ({ onLogout }) => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
+    </>
+    
+	);
+}
 
-export default ManageUser;
+export default Preview;
