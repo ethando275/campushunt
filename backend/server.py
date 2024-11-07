@@ -2,14 +2,13 @@ from flask import Flask, request, jsonify
 from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+import os
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+cors_origins = os.environ.get('CORS_ORIGINS', 'http://localhost:3000').split(',')
+CORS(app, resources={r"/*": {"origins": cors_origins}})
 
 @app.route('/deleteImage', methods=['POST'])
 def deleteImage():
@@ -18,16 +17,14 @@ def deleteImage():
     cloudinary.uploader.destroy(name)
     sql = remove_picture(name)
     if sql == "database error":
-        return print(sql['error']), 500
+        return jsonify({"error": sql['error']}), 500
     return jsonify({"success": True}), 200
 
-# Get all picture URLs from the database
 @app.route('/get_urls', methods=['GET'])
 def get_urls_route():
     urls = get_urls()
     return jsonify(urls), 200
 
-# Upload files to Cloudinary
 @app.route('/upload', methods=['POST'])
 def upload_files():
     files = request.files.getlist('files')
@@ -71,7 +68,7 @@ def upload_files():
     except Exception as e:
         print(f"Error uploading files: {e}")
         return jsonify({"error": str(e)}), 500
-    
+
 @app.route('/editImage', methods=['POST'])
 def editImage():
     data = request.json
@@ -86,4 +83,5 @@ def editImage():
     return jsonify({"success": True}), 200
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)

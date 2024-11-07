@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Modal, Button } from "react-bootstrap";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import "./HomePage.css";
-import "./Images.css";
 import SquareImageGrid from "../components/SquareImageGrid";
+import axiosInstance from "../api/axiosInstance"; // Import the Axios instance
 
 const Images = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -14,7 +12,6 @@ const Images = ({ onLogout }) => {
   const [showModal, setShowModal] = useState(false);
   const [currentID, setCurrentID] = useState("");
 
-  // Refs for the input fields
   const descriptionRef = useRef(null);
   const latitudeRef = useRef(null);
   const longitudeRef = useRef(null);
@@ -24,7 +21,7 @@ const Images = ({ onLogout }) => {
 
     const fetchImages = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/get_urls");
+        const response = await axiosInstance.get("/get_urls"); // Use the Axios instance
         setImages(response.data);
       } catch (error) {
         console.error("Error fetching images:", error);
@@ -49,7 +46,7 @@ const Images = ({ onLogout }) => {
 
   const deleteImage = async (url, public_id) => {
     try {
-      const response = await axios.post("http://127.0.0.1:5000/deleteImage", {
+      const response = await axiosInstance.post("/deleteImage", {
         data: { public_id },
       });
       console.log("Delete response:", response.data);
@@ -60,19 +57,17 @@ const Images = ({ onLogout }) => {
   };
 
   const editMeta = (public_id) => {
-    setCurrentID(public_id); // Set the current URL for the image
+    setCurrentID(public_id);
     setShowModal(true);
   };
 
   const handleSaveMeta = async () => {
-    // Get input values directly from refs
     const description = descriptionRef.current.value;
     const latitude = parseFloat(latitudeRef.current.value) || "";
     const longitude = parseFloat(longitudeRef.current.value) || "";
-    console.log(currentID);
 
     try {
-      await axios.post("http://127.0.0.1:5000/editImage", {
+      await axiosInstance.post("/editImage", {
         currentID,
         description,
         latitude,
@@ -89,7 +84,7 @@ const Images = ({ onLogout }) => {
 
   const handleModalClose = () => {
     setShowModal(false);
-    setCurrentID(""); // Reset URL
+    setCurrentID("");
   };
 
   return (
