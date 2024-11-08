@@ -10,6 +10,8 @@ import LogoUpload from "../components/LogoUpload";
 import ButtonSelector from "../components/ButtonSelector";
 import Preview from "../components/Preview";
 
+// new commit comment
+
 const Customize = ({ onLogout }) => {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("Customize");
