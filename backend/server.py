@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 app = Flask(__name__)
-cors_origins = os.environ.get('CORS_ORIGINS', 'http://localhost:3000').split(',')
+cors_origins = os.environ.get('https://campushunt.onrender.com', 'http://localhost:3000').split(',')
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
 @app.route('/deleteImage', methods=['POST'])
@@ -83,5 +83,5 @@ def editImage():
     return jsonify({"success": True}), 200
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 1000))
     app.run(host='0.0.0.0', port=port, debug=True)
