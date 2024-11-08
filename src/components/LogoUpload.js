@@ -2,13 +2,13 @@ import Form from 'react-bootstrap/Form';
 import React, { useState } from "react";
 
 function LogoUpload() {
-	const [logo, setLogo] = useState("")
+	// const [logo, setLogo] = useState("")
 	const [preview, setPreview] = useState(null);
 
 	const handleFileChange = (event) => {
     const file = event.target.files[0]; // Get the first file from input
     if (file) {
-      setLogo(file); // Set the file in state
+      // setLogo(file); // Set the file in state
       setPreview(URL.createObjectURL(file)); // Create a URL to preview the image
     }
   };
