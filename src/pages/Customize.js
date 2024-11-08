@@ -5,7 +5,7 @@ import FormText from "../components/FormText";
 import ColorSelect from "../components/ColorSelect";
 import DropDown from "../components/DropDown";
 import "./Customize.css";
-import EmojiSelector from "../components/EmojiSelector";
+// import EmojiSelector from "../components/EmojiSelector";
 import LogoUpload from "../components/LogoUpload";
 import ButtonSelector from "../components/ButtonSelector";
 import Preview from "../components/Preview";

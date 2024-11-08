@@ -13,14 +13,14 @@ function LogoUpload() {
     }
   };
 
-	const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent page reload
-    if (logo) {
-      console.log('Uploading:', logo); // You can handle the file upload logic here
-    } else {
-      alert('No file selected.');
-    }
-  };
+	// const handleSubmit = (event) => {
+  //   event.preventDefault(); // Prevent page reload
+  //   if (logo) {
+  //     console.log('Uploading:', logo); // You can handle the file upload logic here
+  //   } else {
+  //     alert('No file selected.');
+  //   }
+  // };
 
   return (
     <>

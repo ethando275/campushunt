@@ -24,6 +24,10 @@
 /* Website-Wide Styles */
 .body {
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   margin: 0;
   margin-top: 15vh;
   padding: 0;
@@ -186,7 +190,7 @@ nav {
   align-items: center;
   position: fixed;
   top: 0;
-  width: 83vw; /* Adjusted width to accommodate border */
+  width: 80vw; /* Adjusted width to accommodate border */
   background-color: white;
   border: 0.6vw solid black;
   padding: 1vh 1vw;
