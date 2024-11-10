@@ -65,12 +65,14 @@ const FileUpload = () => {
 
       alert("Files uploaded successfully!");
       console.log("Upload response:", response.data);
+      setFiles([]);
+      setCaptions({});
+      setShow(false); // Close the modal on success
     } catch (error) {
       console.error("Upload failed:", error);
-      alert("File upload failed");
+      alert("File upload failed. Please check the console for more details.");
     } finally {
       setUploading(false);
-      window.location.reload();
     }
   };
 
