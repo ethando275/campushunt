@@ -3,7 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import SquareImageGrid from "../components/SquareImageGrid";
-import axiosInstance from "../api/axiosInstance"; // Import the Axios instance
+import axiosInstance from "../api/axiosInstance";
 
 const Images = ({ onLogout }) => {
   const navigate = useNavigate();
@@ -18,30 +18,20 @@ const Images = ({ onLogout }) => {
 
   useEffect(() => {
     setSelectedTab("Images");
-
     const fetchImages = async () => {
       try {
-        const response = await axiosInstance.get("/get_urls"); // Use the Axios instance
+        const response = await axiosInstance.get("/get_urls");
         setImages(response.data);
       } catch (error) {
         console.error("Error fetching images:", error);
       }
     };
-
     fetchImages();
   }, []);
 
   const handleLogout = () => {
     onLogout();
     navigate("/");
-  };
-
-  const handleSelectTab = (tab) => {
-    if (tab === "Log Out") {
-      handleLogout();
-    } else {
-      setSelectedTab(tab);
-    }
   };
 
   const deleteImage = async (url, public_id) => {
@@ -73,7 +63,6 @@ const Images = ({ onLogout }) => {
         latitude,
         longitude,
       });
-
       alert("Metadata updated successfully!");
       setShowModal(false);
     } catch (error) {
@@ -82,15 +71,12 @@ const Images = ({ onLogout }) => {
     }
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-    setCurrentID("");
-  };
+  const handleModalClose = () => setShowModal(false);
 
   return (
     <div className="screen">
       <div className="left">
-        <NavBar onSelectTab={handleSelectTab} selectedTab={selectedTab} />
+        <NavBar onSelectTab={handleLogout} selectedTab={selectedTab} />
       </div>
       <div className="right">
         <SquareImageGrid
@@ -99,7 +85,6 @@ const Images = ({ onLogout }) => {
           onImageClick={editMeta}
         />
       </div>
-
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Metadata</Modal.Title>

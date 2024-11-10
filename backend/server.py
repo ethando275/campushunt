@@ -7,7 +7,9 @@ from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 app = Flask(__name__)
-cors_origins = os.environ.get('https://campushunt.onrender.com', 'http://localhost:3000').split(',')
+
+# Get allowed origins from environment for local and Render
+cors_origins = os.environ.get('CORS_ORIGINS', 'http://localhost:3000,https://campushunt.onrender.com').split(',')
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
 @app.route('/deleteImage', methods=['POST'])
@@ -17,7 +19,7 @@ def deleteImage():
     cloudinary.uploader.destroy(name)
     sql = remove_picture(name)
     if sql == "database error":
-        return jsonify({"error": sql['error']}), 500
+        return jsonify({"error": "Database error occurred"}), 500
     return jsonify({"success": True}), 200
 
 @app.route('/get_urls', methods=['GET'])
@@ -28,7 +30,6 @@ def get_urls_route():
 @app.route('/upload', methods=['POST'])
 def upload_files():
     files = request.files.getlist('files')
-
     if not files:
         return jsonify({"error": "No files provided"}), 400
 
@@ -60,7 +61,7 @@ def upload_files():
             if file_url:
                 insert = insert_picture(file_url, [latitude, longitude], description, public_id)
                 if insert == "database error":
-                    return jsonify({"error": insert['error']}), 500
+                    return jsonify({"error": "Database error occurred"}), 500
             else:
                 print(f"Error: Upload for file {index} did not return a URL.")
 
@@ -79,7 +80,7 @@ def editImage():
     update = edit_picture(public_id, latitude, longitude, description)
 
     if update == "database error":
-        return jsonify({"error": update['error']}), 500
+        return jsonify({"error": "Database error occurred"}), 500
     return jsonify({"success": True}), 200
 
 if __name__ == "__main__":
