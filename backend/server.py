@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
@@ -11,6 +11,11 @@ app = Flask(__name__)
 # Get allowed origins from environment for local and Render
 cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
 CORS(app, resources={r"/*": {"origins": cors_origins}})
+
+@app.route('/')
+@app.route('/<path:path>')
+def serve_frontend(path=''):
+    return send_from_directory('build', path or 'index.html')
 
 @app.route('/deleteImage', methods=['POST'])
 def deleteImage():
