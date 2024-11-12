@@ -12,10 +12,9 @@ app = Flask(__name__)
 cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
-@app.route('/')
-@app.route('/<path:path>')
-def serve_frontend(path=''):
-    return send_from_directory('build', path or 'index.html')
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({"message": "Welcome to the backend!"})
 
 @app.route('/deleteImage', methods=['POST'])
 def deleteImage():
