@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from backend.database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture
-from backend.cloudinaryconfig import cloudinary
+from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture
+from cloudinaryconfig import cloudinary
 import cloudinary.uploader
 import os
 from werkzeug.utils import secure_filename
