@@ -9,7 +9,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # Get allowed origins from environment for local and Render
-cors_origins = 'https://campushunt.onrender.com'
+cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
 @app.route('/deleteImage', methods=['POST'])
@@ -84,5 +84,5 @@ def editImage():
     return jsonify({"success": True}), 200
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 1000))
+    port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
