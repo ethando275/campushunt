@@ -2,7 +2,7 @@ import React from "react";
 import "./SquareImageGrid.css";
 import FileUpload from "./FileUpload";
 
-const SquareImageGrid = ({ images = [], onDelete, onImageClick }) => {
+const SquareImageGrid = ({ images, onDelete, onImageClick }) => {
   const handleDelete = (url, public_id) => {
     if (window.confirm("Are you sure you want to delete this image?")) {
       onDelete(url, public_id);
