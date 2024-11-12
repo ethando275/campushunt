@@ -59,9 +59,13 @@ const FileUpload = () => {
     });
 
     try {
-      const response = await axiosInstance.post("/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axiosInstance.post(
+        "https://campushunt.onrender.com/upload",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       alert("Files uploaded successfully!");
       console.log("Upload response:", response.data);
@@ -73,6 +77,7 @@ const FileUpload = () => {
       alert("File upload failed. Please check the console for more details.");
     } finally {
       setUploading(false);
+      window.location.reload();
     }
   };
 

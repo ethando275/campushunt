@@ -76,7 +76,11 @@ const App = () => {
               </div>
               <div className="right-half">
                 <Background
-                  text={isLoginVisible ? "Administrator Login" : "Welcome to CampusHunt!"}
+                  text={
+                    isLoginVisible
+                      ? "Administrator Login"
+                      : "Welcome to CampusHunt!"
+                  }
                   subtext={
                     isLoginVisible
                       ? "Contact campushunt@gmail.com for issues relating to your admin account"
@@ -90,7 +94,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/customize" element={<Customize />} />
         <Route path="/images" element={<Images />} />
-        <Route path="/manage_users" element = {<ManageUsers />} />
+        <Route path="/manage_users" element={<ManageUsers />} />
         <Route path="/university_game_page" element={<UniversityGamePage />} />
         <Route path="/all_game_pages" element={<AllGamePages />} />
       </Routes>
