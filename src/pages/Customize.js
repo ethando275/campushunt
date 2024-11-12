@@ -47,7 +47,6 @@ const Customize = ({ onLogout }) => {
           <FormText title="Share Message" titleid="shareMessage"></FormText>
           {/* <EmojiSelector></EmojiSelector> */}
           <ButtonSelector></ButtonSelector>
-
         </div>
 
         <div className="container-row">
@@ -57,7 +56,6 @@ const Customize = ({ onLogout }) => {
           <ColorSelect label="Primary"></ColorSelect>
           <ColorSelect label="Secondary"></ColorSelect>
         </div>
-
       </div>
     </div>
   );

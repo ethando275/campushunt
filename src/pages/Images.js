@@ -20,7 +20,9 @@ const Images = ({ onLogout }) => {
     setSelectedTab("Images");
     const fetchImages = async () => {
       try {
-        const response = await axiosInstance.get("/get_urls");
+        const response = await axiosInstance.get(
+          "https://campushunt.onrender.com/get_urls"
+        );
         setImages(response.data);
       } catch (error) {
         console.error("Error fetching images:", error);
@@ -36,9 +38,12 @@ const Images = ({ onLogout }) => {
 
   const deleteImage = async (url, public_id) => {
     try {
-      const response = await axiosInstance.post("/deleteImage", {
-        data: { public_id },
-      });
+      const response = await axiosInstance.post(
+        "https://campushunt.onrender.com/deleteImage",
+        {
+          data: { public_id },
+        }
+      );
       console.log("Delete response:", response.data);
       setImages(images.filter((image) => image.url !== url));
     } catch (error) {
@@ -57,7 +62,7 @@ const Images = ({ onLogout }) => {
     const longitude = parseFloat(longitudeRef.current.value) || "";
 
     try {
-      await axiosInstance.post("/editImage", {
+      await axiosInstance.post("https://campushunt.onrender.com/editImage", {
         currentID,
         description,
         latitude,
