@@ -21,11 +21,13 @@ CORS(app, resources={r"/*": {"origins": cors_origins}})
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    # First, try to serve static files (if they exist)
-    if path.startswith(('static/', 'assets/', 'images/')):
-        if os.path.exists(os.path.join(app.static_folder, path)):
-            return send_from_directory(app.static_folder, path)
-    # For all other routes, serve the React app
+    # First, try to serve static files from the build directory
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    # For API endpoints, don't serve index.html
+    if path.startswith('api/'):
+        return jsonify({"error": "Not found"}), 404
+    # For all other routes, serve the React app's index.html
     return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/deleteImage', methods=['POST'])

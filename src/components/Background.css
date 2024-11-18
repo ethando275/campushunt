@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: white !important;
   text-align: center;
   position: relative; /* Positioning context for absolutely positioned children */
   overflow: hidden; /* Prevents overflow of the image */
