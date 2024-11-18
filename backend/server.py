@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 app = Flask(__name__, 
-    static_folder='../build',  # Use build folder in production
+    static_folder='../build',
     static_url_path='')
 
 # Configure server for production
@@ -21,13 +21,16 @@ CORS(app, resources={r"/*": {"origins": cors_origins}})
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    # First, try to serve static files from the build directory
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    # For API endpoints, don't serve index.html
-    if path.startswith('api/'):
+    # API endpoints should be handled by their specific routes
+    if path.startswith(('deleteImage', 'get_urls', 'editImage', 'upload')):
         return jsonify({"error": "Not found"}), 404
-    # For all other routes, serve the React app's index.html
+        
+    # Try to serve static files from the build directory
+    static_file_path = os.path.join(app.static_folder, path)
+    if os.path.isfile(static_file_path):
+        return send_from_directory(app.static_folder, path)
+        
+    # For all other routes, serve index.html
     return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/deleteImage', methods=['POST'])
