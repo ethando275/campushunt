@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_file, send_from_directory
 from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
@@ -6,22 +6,21 @@ import os
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder='../build', static_url_path='/')
+app = Flask(__name__, 
+    static_folder='../public',  # During development, serve from public
+    static_url_path='')
 
 # Get allowed origins from environment for local and Render
 cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
-@app.route('/', methods=['GET'])
-def home():
-    return app.send_static_file('index.html')
-
+@app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def serve_static(path):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
-        return app.send_static_file(path)
+def serve(path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
     else:
-        return app.send_static_file('index.html')
+        return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/deleteImage', methods=['POST'])
 def deleteImage():
