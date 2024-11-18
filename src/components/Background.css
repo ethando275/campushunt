@@ -22,8 +22,19 @@
   height: auto; /* Maintain aspect ratio */
 }
 
-.background h2,
-.background h3 {
+/* Scope text styles to the background component container */
+.background .container {
+  display: flex;              /* Use flexbox */
+  flex-direction: column;     /* Arrange items in a column */
+  justify-content: center;
+  align-items: center;        /* Center items horizontally */
+  position: relative;
+  z-index: 2;
+}
+
+/* Specifically target h2 and h3 within the background container */
+.background .container h2,
+.background .container h3 {
   color: white !important;
   position: relative; /* Keep the text on top of the image */
   z-index: 2; /* Ensure text is above the image */
@@ -31,20 +42,11 @@
   font-family: 'Montserrat', sans-serif !important;
 }
 
-.background h2 {
+.background .container h2 {
   font-size: 2rem; /* Change the font size for h2 */
 }
 
-.background h3 {
+.background .container h3 {
   font-size: 1.5rem; /* Change the font size for h3 */
   margin-top: 1rem;
-}
-
-.container {
-  display: flex;              /* Use flexbox */
-  flex-direction: column;     /* Arrange items in a column */
-  justify-content: center;
-  align-items: center;        /* Center items horizontally */
-  position: relative;
-  z-index: 2;
 }
