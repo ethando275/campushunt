@@ -7,7 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   text-align: center;
   position: relative; /* Positioning context for absolutely positioned children */
   overflow: hidden; /* Prevents overflow of the image */
@@ -23,29 +22,31 @@
   height: auto; /* Maintain aspect ratio */
 }
 
-h2 {
-  position: relative; /* Keep the text on top of the image */
-  z-index: 2; /* Ensure text is above the image */
-  margin: 0; /* Remove default margin */
-  font-size: 2rem; /* Change the font size for h2 */
-  font-family: 'Montserrat', sans-serif !important;
-}
-
-h3 {
-  width: 30ch; /* 30 characters wide */
-  overflow-wrap: break-word;
-  position: relative; /* Keep the text on top of the image */
-  z-index: 2; /* Ensure text is above the image */
-  margin: 0; /* Remove default margin */
-  font-size: 1rem !important; /* Change the font size for h3 */
-  margin-top: 20px !important;
-  font-family: 'Montserrat', sans-serif !important;
-
-}
-
-.container {
+/* Scope text styles to the background component container */
+.background .container {
   display: flex;              /* Use flexbox */
   flex-direction: column;     /* Arrange items in a column */
   justify-content: center;
   align-items: center;        /* Center items horizontally */
+  position: relative;
+  z-index: 2;
+}
+
+/* Specifically target h2 and h3 within the background container */
+.background .container h2,
+.background .container h3 {
+  color: white !important;
+  position: relative; /* Keep the text on top of the image */
+  z-index: 2; /* Ensure text is above the image */
+  margin: 0; /* Remove default margin */
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.background .container h2 {
+  font-size: 2rem; /* Change the font size for h2 */
+}
+
+.background .container h3 {
+  font-size: 1.5rem; /* Change the font size for h3 */
+  margin-top: 1rem;
 }

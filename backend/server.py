@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file, send_from_directory
+from flask import Flask, request, jsonify, send_file, send_from_directory, redirect
 from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 app = Flask(__name__, 
-    static_folder='../build',  # Use build folder in production
+    static_folder='../build',
     static_url_path='')
 
 # Configure server for production
@@ -18,13 +18,41 @@ app.config['DEBUG'] = False
 cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
+# Add explicit routes for React routes
+@app.route('/home')
+@app.route('/dashboard')
+@app.route('/customize')
+@app.route('/images')
+@app.route('/manage_users')
+@app.route('/university_game_page')
+@app.route('/all_game_pages')
+def react_routes():
+    return send_from_directory(app.static_folder, 'index.html')
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+    # List of valid React routes
+    valid_routes = ['home', 'dashboard', 'customize', 'images', 'manage_users', 'university_game_page', 'all_game_pages']
+    
+    # API endpoints should be handled by their specific routes
+    if path.startswith(('deleteImage', 'get_urls', 'editImage', 'upload')):
+        return jsonify({"error": "Not found"}), 404
+    
+    # Check if path is a valid route
+    if path and path not in valid_routes:
+        # For invalid routes, redirect to home or root based on if static/index.html exists
+        if os.path.isfile(os.path.join(app.static_folder, 'index.html')):
+            return send_from_directory(app.static_folder, 'index.html')
+        return redirect('/')
+        
+    # Try to serve static files from the build directory
+    static_file_path = os.path.join(app.static_folder, path)
+    if os.path.isfile(static_file_path):
         return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+        
+    # For all other routes, serve index.html
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/deleteImage', methods=['POST'])
 def deleteImage():
@@ -98,4 +126,5 @@ def editImage():
     return jsonify({"success": True}), 200
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

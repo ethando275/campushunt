@@ -31,6 +31,13 @@ const Images = ({ onLogout }) => {
     fetchImages();
   }, []);
 
+  const handleTabSelect = (tab) => {
+    setSelectedTab(tab);
+    if (tab === "Log Out") {
+      handleLogout();
+    }
+  };
+
   const handleLogout = () => {
     onLogout();
     navigate("/");
@@ -81,7 +88,7 @@ const Images = ({ onLogout }) => {
   return (
     <div className="screen">
       <div className="left">
-        <NavBar onSelectTab={handleLogout} selectedTab={selectedTab} />
+        <NavBar onSelectTab={handleTabSelect} selectedTab={selectedTab} />
       </div>
       <div className="right">
         <SquareImageGrid

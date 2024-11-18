@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
 import SwipeToOpen from "./components/SwipeToOpen";
 import Background from "./components/Background";
 import Login from "./components/Login";
@@ -15,6 +16,7 @@ import Dashboard from "./pages/Dashboard";
 const App = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedLoginStatus = localStorage.getItem("isLoggedIn");
@@ -27,7 +29,7 @@ const App = () => {
     setIsLoggedIn(true);
     setIsLoginVisible(false);
     localStorage.setItem("isLoggedIn", "true");
-    window.location.href = "/home"; // Force navigation
+    navigate("/home");
   };
 
   const handleSwipeComplete = () => {
@@ -37,7 +39,7 @@ const App = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
-    window.location.href = "/"; // Force navigation
+    navigate("/");
   };
 
   const handleBack = () => {
@@ -97,6 +99,16 @@ const App = () => {
         <Route path="/manage_users" element={<ManageUsers />} />
         <Route path="/university_game_page" element={<UniversityGamePage />} />
         <Route path="/all_game_pages" element={<AllGamePages />} />
+        <Route
+          path="*"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/home" replace />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
       </Routes>
     </div>
   );

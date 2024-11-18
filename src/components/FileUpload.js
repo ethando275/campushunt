@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance"; // Import the Axios instance
 import "./FileUpload.css";
 
 const FileUpload = () => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [files, setFiles] = useState([]);
   const [captions, setCaptions] = useState({});
@@ -77,7 +79,7 @@ const FileUpload = () => {
       alert("File upload failed. Please check the console for more details.");
     } finally {
       setUploading(false);
-      window.location.reload();
+      navigate("/images");
     }
   };
 

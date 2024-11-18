@@ -54,7 +54,7 @@ function NavBar({ onSelectTab, selectedTab }) {
     <div className="nav-bar">
       <ul className="list-group">
         <NavLink to="/home">
-        <img className="campushunt" src={campusHunt} alt="Campus Hunt Logo" />
+          <img className="campushunt" src={campusHunt} alt="Campus Hunt Logo" />
         </NavLink>
         {/* Function that goes through each tab */}
         {tabs.map((tab, index) => (
