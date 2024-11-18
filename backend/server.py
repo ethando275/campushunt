@@ -6,7 +6,7 @@ import os
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 # Get allowed origins from environment for local and Render
 cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
@@ -14,7 +14,14 @@ CORS(app, resources={r"/*": {"origins": cors_origins}})
 
 @app.route('/', methods=['GET'])
 def home():
-    return jsonify({"message": "Welcome to the backend!"})
+    return app.send_static_file('index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return app.send_static_file(path)
+    else:
+        return app.send_static_file('index.html')
 
 @app.route('/deleteImage', methods=['POST'])
 def deleteImage():
@@ -88,5 +95,4 @@ def editImage():
     return jsonify({"success": True}), 200
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run()
