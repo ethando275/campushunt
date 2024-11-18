@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
 import SwipeToOpen from "./components/SwipeToOpen";
 import Background from "./components/Background";
 import Login from "./components/Login";
