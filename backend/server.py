@@ -18,12 +18,22 @@ app.config['DEBUG'] = False
 cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
+# Serve static files
+@app.route("/static/<path:path>")
+def serve_static(path):
+    return send_from_directory(os.path.join(app.static_folder, "static"), path)
+
+# Catch all routes and serve index.html
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    else:
+    if path.startswith("api/"):
+        return "Not found", 404
+    try:
+        if path and os.path.exists(os.path.join(app.static_folder, path)):
+            return send_from_directory(app.static_folder, path)
+        return send_from_directory(app.static_folder, 'index.html')
+    except Exception as e:
         return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/deleteImage', methods=['POST'])
@@ -98,4 +108,5 @@ def editImage():
     return jsonify({"success": True}), 200
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
