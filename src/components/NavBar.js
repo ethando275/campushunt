@@ -34,49 +34,42 @@ const tabLogos = [
 function NavBar({ onSelectTab, selectedTab }) {
   const navigate = useNavigate();
 
+  // Handle Logout Logic
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    navigate("/"); // Navigate to the login page
+    window.location.reload(); // Force a reload to reset the state
+  };
+
   const handleTabClick = (tab) => {
     if (tab === "Log Out") {
-      localStorage.removeItem("isLoggedIn");
-      onSelectTab(tab);
-      navigate("/");
+      handleLogout(); // Trigger logout
     } else {
       onSelectTab(tab);
-      const path = tab.toLowerCase().replace(/ /g, "_");
-      navigate(`/${path}`);
+      navigate(`/${tab.toLowerCase().replace(/ /g, "_")}`); // Navigate to the selected tab
     }
   };
 
   return (
-    <div className="navbar">
-      <div className="navbar-header">
-        <img src={campusHunt} alt="CampusHunt Logo" className="logo" />
-      </div>
-      <div className="navbar-tabs">
+    <div className="nav-bar">
+      <ul className="list-group">
+        <NavLink to="/home">
+          <img className="campushunt" src={campusHunt} alt="Campus Hunt Logo" />
+        </NavLink>
+        {/* Function that goes through each tab */}
         {tabs.map((tab, index) => (
-          <NavLink
+          <li
+            // Highlight active tab based on selectedTab
+            className={`list-group-item ${selectedTab === tab ? "active" : ""}`}
             key={tab}
-            to={
-              tab === "Log Out"
-                ? "/"
-                : `/${tab.toLowerCase().replace(/ /g, "_")}`
-            }
-            className={({ isActive }) =>
-              `tab ${isActive || selectedTab === tab ? "selected" : ""}`
-            }
-            onClick={(e) => {
-              e.preventDefault(); // Prevent default navigation
-              handleTabClick(tab);
-            }}
+            // Handle the click event for the entire tab (li element)
+            onClick={() => handleTabClick(tab)}
           >
-            <img
-              src={tabLogos[index]}
-              alt={`${tab} Icon`}
-              className="tab-icon"
-            />
-            <span className="tab-text">{tab}</span>
-          </NavLink>
+            <img className="logo" src={tabLogos[index]} alt={`${tab} logo`} />
+            <span className="nav-link">{tab}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import SwipeToOpen from "./components/SwipeToOpen";
 import Background from "./components/Background";
@@ -15,7 +15,6 @@ import Dashboard from "./pages/Dashboard";
 const App = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedLoginStatus = localStorage.getItem("isLoggedIn");
@@ -28,7 +27,7 @@ const App = () => {
     setIsLoggedIn(true);
     setIsLoginVisible(false);
     localStorage.setItem("isLoggedIn", "true");
-    navigate("/home");
+    window.location.href = "/home"; // Force navigation
   };
 
   const handleSwipeComplete = () => {
@@ -38,19 +37,11 @@ const App = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
-    navigate("/");
+    window.location.href = "/"; // Force navigation
   };
 
   const handleBack = () => {
     setIsLoginVisible(false);
-  };
-
-  // Protected Route wrapper component
-  const ProtectedRoute = ({ children }) => {
-    if (!isLoggedIn) {
-      return <Navigate to="/" replace />;
-    }
-    return children;
   };
 
   return (
@@ -64,91 +55,48 @@ const App = () => {
         <Route
           path="/home"
           element={
-            <ProtectedRoute>
+            isLoggedIn ? (
               <HomePage onLogout={handleLogout} />
-            </ProtectedRoute>
+            ) : (
+              <Navigate to="/" replace />
+            )
           }
         />
         <Route
           path="/"
           element={
-            isLoggedIn ? (
-              <Navigate to="/home" replace />
-            ) : (
-              <>
-                <div className="left-half">
-                  {!isLoginVisible ? (
-                    <SwipeToOpen onSwipeComplete={handleSwipeComplete} />
-                  ) : (
-                    <Login onLogin={handleLogin} />
-                  )}
-                </div>
-                <div className="right-half">
-                  <Background
-                    text={
-                      isLoginVisible
-                        ? "Administrator Login"
-                        : "Welcome to CampusHunt!"
-                    }
-                    subtext={
-                      isLoginVisible
-                        ? "Contact campushunt@gmail.com for issues relating to your admin account"
-                        : "Swipe to login"
-                    }
-                  />
-                </div>
-              </>
-            )
+            <>
+              <div className="left-half">
+                {!isLoginVisible ? (
+                  <SwipeToOpen onSwipeComplete={handleSwipeComplete} />
+                ) : (
+                  <Login onLogin={handleLogin} />
+                )}
+                {isLoggedIn && <Navigate to="/home" replace />}
+              </div>
+              <div className="right-half">
+                <Background
+                  text={
+                    isLoginVisible
+                      ? "Administrator Login"
+                      : "Welcome to CampusHunt!"
+                  }
+                  subtext={
+                    isLoginVisible
+                      ? "Contact campushunt@gmail.com for issues relating to your admin account"
+                      : "Swipe to login"
+                  }
+                />
+              </div>
+            </>
           }
         />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/customize"
-          element={
-            <ProtectedRoute>
-              <Customize />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/images"
-          element={
-            <ProtectedRoute>
-              <Images />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/manage_users"
-          element={
-            <ProtectedRoute>
-              <ManageUsers />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/university_game_page"
-          element={
-            <ProtectedRoute>
-              <UniversityGamePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/all_game_pages"
-          element={
-            <ProtectedRoute>
-              <AllGamePages />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/customize" element={<Customize />} />
+        <Route path="/images" element={<Images />} />
+        <Route path="/manage_users" element={<ManageUsers />} />
+        <Route path="/university_game_page" element={<UniversityGamePage />} />
+        <Route path="/all_game_pages" element={<AllGamePages />} />
       </Routes>
     </div>
   );
