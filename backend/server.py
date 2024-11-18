@@ -7,8 +7,12 @@ from werkzeug.utils import secure_filename
 from flask_cors import CORS
 
 app = Flask(__name__, 
-    static_folder='../public',  # During development, serve from public
+    static_folder='../build',  # Use build folder in production
     static_url_path='')
+
+# Configure server for production
+app.config['ENV'] = 'production'
+app.config['DEBUG'] = False
 
 # Get allowed origins from environment for local and Render
 cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
