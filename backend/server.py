@@ -18,6 +18,17 @@ app.config['DEBUG'] = False
 cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
+# Add explicit routes for React routes
+@app.route('/home')
+@app.route('/dashboard')
+@app.route('/customize')
+@app.route('/images')
+@app.route('/manage_users')
+@app.route('/university_game_page')
+@app.route('/all_game_pages')
+def react_routes():
+    return send_from_directory(app.static_folder, 'index.html')
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
