@@ -19,13 +19,7 @@ cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
 CORS(app, resources={r"/*": {"origins": cors_origins}})
 
 @app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
 def serve(path):
-    # First, try to serve static files (if they exist)
-    if path.startswith(('static/', 'assets/', 'images/')):
-        if os.path.exists(os.path.join(app.static_folder, path)):
-            return send_from_directory(app.static_folder, path)
-    # For all other routes, serve the React app
     return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/deleteImage', methods=['POST'])
