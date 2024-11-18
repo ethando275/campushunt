@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file, send_from_directory
+from flask import Flask, request, jsonify, send_file, send_from_directory, redirect
 from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
@@ -32,9 +32,19 @@ def react_routes():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
+    # List of valid React routes
+    valid_routes = ['home', 'dashboard', 'customize', 'images', 'manage_users', 'university_game_page', 'all_game_pages']
+    
     # API endpoints should be handled by their specific routes
     if path.startswith(('deleteImage', 'get_urls', 'editImage', 'upload')):
         return jsonify({"error": "Not found"}), 404
+    
+    # Check if path is a valid route
+    if path and path not in valid_routes:
+        # For invalid routes, redirect to home or root based on if static/index.html exists
+        if os.path.isfile(os.path.join(app.static_folder, 'index.html')):
+            return send_from_directory(app.static_folder, 'index.html')
+        return redirect('/')
         
     # Try to serve static files from the build directory
     static_file_path = os.path.join(app.static_folder, path)

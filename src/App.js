@@ -99,6 +99,16 @@ const App = () => {
         <Route path="/manage_users" element={<ManageUsers />} />
         <Route path="/university_game_page" element={<UniversityGamePage />} />
         <Route path="/all_game_pages" element={<AllGamePages />} />
+        <Route
+          path="*"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/home" replace />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
       </Routes>
     </div>
   );
