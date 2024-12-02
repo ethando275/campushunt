@@ -141,7 +141,7 @@ def get_random_picture_route():
 def auth_google_login():
     return login()
 
-@app.route('/auth/google/callback')
+@app.route('/login/callback')
 def auth_google_callback():
     user_info, error = callback()
     

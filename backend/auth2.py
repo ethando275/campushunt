@@ -47,7 +47,7 @@ def login():
         google_provider_cfg['authorization_endpoint'])
 
     # Use BASE_URL for the redirect URI
-    redirect_uri = f"{BASE_URL}/auth/google/callback"
+    redirect_uri = f"{BASE_URL}/login/callback"
     print("Login redirect_uri:", redirect_uri, file=sys.stderr)
     
     # Construct the request URL for Google login, providing scopes
@@ -76,7 +76,7 @@ def callback():
         token_endpoint = google_provider_cfg['token_endpoint']
 
         # Use BASE_URL for the redirect URL
-        redirect_url = f"{BASE_URL}/auth/google/callback"
+        redirect_url = f"{BASE_URL}/login/callback"
         print("Callback redirect_url:", redirect_url, file=sys.stderr)
         print("Request URL:", flask.request.url, file=sys.stderr)
 
