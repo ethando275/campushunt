@@ -30,6 +30,11 @@ GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
 cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:5000").split(',')
 BASE_URL = cors_origins[0].rstrip('/')  # Remove trailing slash if present
 
+# Debug logging
+print("Environment CORS_ORIGINS:", os.environ.get("CORS_ORIGINS"), file=sys.stderr)
+print("All origins:", cors_origins, file=sys.stderr)
+print("Selected BASE_URL:", BASE_URL, file=sys.stderr)
+
 client = oauthlib.oauth2.WebApplicationClient(GOOGLE_CLIENT_ID)
 
 #-----------------------------------------------------------------------
