@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+#-----------------------------------------------------------------------
+# auth2.py
+# Author: Bob Dondero
+#   With lots of help from https://realpython.com/flask-google-login/
+#-----------------------------------------------------------------------
+
 import os
 import sys
 import json
@@ -18,8 +26,9 @@ dotenv.load_dotenv()
 GOOGLE_CLIENT_ID = os.environ['GOOGLE_CLIENT_ID']
 GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
 
-# Get the base URL from environment variable, default to localhost for development
-BASE_URL = os.environ.get('BASE_URL', 'http://localhost:5000')
+# Get the base URL from CORS_ORIGINS, using the first origin
+cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:5000").split(',')
+BASE_URL = cors_origins[0].rstrip('/')  # Remove trailing slash if present
 
 client = oauthlib.oauth2.WebApplicationClient(GOOGLE_CLIENT_ID)
 
@@ -64,11 +73,14 @@ def callback():
         google_provider_cfg = requests.get(GOOGLE_DISCOVERY_URL).json()
         token_endpoint = google_provider_cfg['token_endpoint']
 
+        # Use BASE_URL for the redirect URL
+        redirect_url = f"{BASE_URL}/login/callback"
+
         # Construct a request to fetch the tokens.
         token_url, headers, body = client.prepare_token_request(
             token_endpoint,
             authorization_response=flask.request.url,
-            redirect_url=flask.request.base_url,
+            redirect_url=redirect_url,
             code=code
         )
 
