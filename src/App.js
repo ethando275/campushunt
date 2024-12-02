@@ -12,6 +12,9 @@ import ManageUsers from "./pages/ManageUsers";
 import UniversityGamePage from "./pages/UniversityGamePage";
 import AllGamePages from "./pages/AllGamePages";
 import Dashboard from "./pages/Dashboard";
+import PrincetonMenu from "./pages/PrincetonGame/PrincetonMenu";
+import PrincetonDaily from "./pages/PrincetonGame/PrincetonDaily";
+import GuessResults from "./components/GuessResults";
 
 const App = () => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
@@ -98,6 +101,9 @@ const App = () => {
         <Route path="/images" element={<Images />} />
         <Route path="/manage_users" element={<ManageUsers />} />
         <Route path="/university_game_page" element={<UniversityGamePage />} />
+        <Route path="/princeton_menu" element={<PrincetonMenu />} />
+        <Route path="/princeton_daily" element={<PrincetonDaily />} />
+        <Route path="/guess-results" element={<GuessResults />} />
         <Route path="/all_game_pages" element={<AllGamePages />} />
         <Route
           path="*"

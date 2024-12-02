@@ -1,0 +1,65 @@
+.princeton-menu-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.princeton-dashboard {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 0.15rem 0.25rem;
+  border-bottom: 1px solid #e0e0e0;
+  line-height: 1;
+}
+
+.princeton-dash-button {
+  padding: 3px 16px;
+  font-size: 0.95rem;
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 24px;
+  line-height: 1;
+}
+
+.princeton-dash-button:hover {
+  background-color: #e9ecef;
+}
+
+.play-button {
+  margin-top: 2rem;
+  padding: 12px 32px;
+  font-size: 1.2rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.play-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.content-container h1 {
+  color: #333;
+  font-size: 1.8rem;
+  margin: 0;
+  text-align: center;
+}

@@ -1,37 +1,65 @@
 import React, { useEffect, useState } from "react";
+import "./UniversityGamePage.css";
+import tigerspot from "../assets/home.png";
+import axios from "../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import "./HomePage.css";
 
-const UniversityGamePage = ({ onLogout }) => {
+const UniversityGamePage = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState("University Game Page");
 
   useEffect(() => {
-    setSelectedTab("University Game Page");
-  }, []); // Reset selectedTab when the component mounts
+    // Check if user is already authenticated
+    const checkAuthStatus = async () => {
+      try {
+        const response = await axios.get("/api/user");
+        if (response.data.isAuthenticated) {
+          navigate("/princeton_menu");
+        } else {
+          setIsAuthenticated(false);
+          setUser(null);
+        }
+      } catch (error) {
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    };
 
-  const handleLogout = () => {
-    onLogout();
-    navigate("/");
+    checkAuthStatus();
+  }, [navigate]);
+
+  const handleLogin = () => {
+    // Redirect to Google login
+    window.location.href = "/auth/google/login";
   };
 
-  const handleSelectTab = (tab) => {
-    if (tab === "Log Out") {
-      handleLogout();
-    } else {
-      setSelectedTab(tab);
+  const handleLogout = async () => {
+    try {
+      await axios.get("/auth/google/logout");
+      setIsAuthenticated(false);
+      setUser(null);
+    } catch (error) {
+      console.error("Logout failed:", error);
     }
   };
 
   return (
-    <div className="screen">
-      <div className="left">
-        <NavBar onSelectTab={handleSelectTab} selectedTab={selectedTab} />{" "}
-        {/* Pass selectedTab */}
-      </div>
-      <div className="right">
-        tigerspot
+    <div className="university-game-container">
+      <div className="content-wrapper">
+        <img className="logo-placeholder" src={tigerspot} alt="tigerlogo" />
+        {isAuthenticated ? (
+          <div className="user-info">
+            <p>Welcome, {user?.name}</p>
+            <button className="login-button" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        ) : (
+          <button className="login-button" onClick={handleLogin}>
+            Login with Google
+          </button>
+        )}
       </div>
     </div>
   );
