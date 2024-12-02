@@ -7,6 +7,7 @@ import sys
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 from auth2 import login, callback, logoutapp
+from datetime import timedelta
 
 app = Flask(__name__, 
     static_folder='../build',
@@ -16,6 +17,26 @@ app = Flask(__name__,
 app.config['ENV'] = 'production'
 app.config['DEBUG'] = False
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev")
+
+# Session configuration
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE='None',
+    SESSION_COOKIE_HTTPONLY=True,
+    PERMANENT_SESSION_LIFETIME=timedelta(days=7)
+)
+
+# Force HTTPS in production
+class ForceHTTPS(object):
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        environ['wsgi.url_scheme'] = 'https'
+        return self.app(environ, start_response)
+
+if os.environ.get('FLASK_ENV') == 'production':
+    app.wsgi_app = ForceHTTPS(app.wsgi_app)
 
 # Get allowed origins from environment for local and Render
 cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:5000,https://campushunt.onrender.com/").split(',')

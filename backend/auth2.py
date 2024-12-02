@@ -71,6 +71,12 @@ def callback():
         if not code:
             return None, "Authorization code missing"
 
+        # Force HTTPS for the request URL in production
+        request_url = flask.request.url
+        if os.environ.get('FLASK_ENV') == 'production':
+            request_url = request_url.replace('http://', 'https://')
+        print("Modified Request URL:", request_url, file=sys.stderr)
+
         # Determine the URL to fetch tokens
         google_provider_cfg = requests.get(GOOGLE_DISCOVERY_URL).json()
         token_endpoint = google_provider_cfg['token_endpoint']
@@ -78,12 +84,12 @@ def callback():
         # Use BASE_URL for the redirect URL
         redirect_url = f"{BASE_URL}/login/callback"
         print("Callback redirect_url:", redirect_url, file=sys.stderr)
-        print("Request URL:", flask.request.url, file=sys.stderr)
+        print("Request URL:", request_url, file=sys.stderr)
 
         # Construct a request to fetch the tokens.
         token_url, headers, body = client.prepare_token_request(
             token_endpoint,
-            authorization_response=flask.request.url,
+            authorization_response=request_url,  # Use modified URL
             redirect_url=redirect_url,
             code=code
         )
