@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-
-#-----------------------------------------------------------------------
-# auth.py
-# Author: Bob Dondero
-#   With lots of help from https://realpython.com/flask-google-login/
-#-----------------------------------------------------------------------
-
 import os
 import sys
 import json
@@ -26,6 +18,9 @@ dotenv.load_dotenv()
 GOOGLE_CLIENT_ID = os.environ['GOOGLE_CLIENT_ID']
 GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
 
+# Get the base URL from environment variable, default to localhost for development
+BASE_URL = os.environ.get('BASE_URL', 'http://localhost:5000')
+
 client = oauthlib.oauth2.WebApplicationClient(GOOGLE_CLIENT_ID)
 
 #-----------------------------------------------------------------------
@@ -37,11 +32,14 @@ def login():
     authorization_endpoint = (
         google_provider_cfg['authorization_endpoint'])
 
+    # Use BASE_URL for the redirect URI
+    redirect_uri = f"{BASE_URL}/login/callback"
+    
     # Construct the request URL for Google login, providing scopes
     # to fetch the user's profile data.
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri='http://localhost:5000/login/callback',
+        redirect_uri=redirect_uri,
         scope=['openid', 'email', 'profile'],
     )
 
