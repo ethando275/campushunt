@@ -42,7 +42,8 @@ def login():
         google_provider_cfg['authorization_endpoint'])
 
     # Use BASE_URL for the redirect URI
-    redirect_uri = f"{BASE_URL}/login/callback"
+    redirect_uri = f"{BASE_URL}/auth/google/callback"
+    print("Login redirect_uri:", redirect_uri, file=sys.stderr)
     
     # Construct the request URL for Google login, providing scopes
     # to fetch the user's profile data.
@@ -52,11 +53,7 @@ def login():
         scope=['openid', 'email', 'profile'],
     )
 
-    #-------------------------------------------------------------------
-    # For learning:
-    # print('request_uri:', request_uri, file=sys.stderr)
-    #-------------------------------------------------------------------
-
+    print("Final request_uri:", request_uri, file=sys.stderr)
     # Redirect to the request URL.
     return flask.redirect(request_uri)
 
@@ -74,7 +71,9 @@ def callback():
         token_endpoint = google_provider_cfg['token_endpoint']
 
         # Use BASE_URL for the redirect URL
-        redirect_url = f"{BASE_URL}/login/callback"
+        redirect_url = f"{BASE_URL}/auth/google/callback"
+        print("Callback redirect_url:", redirect_url, file=sys.stderr)
+        print("Request URL:", flask.request.url, file=sys.stderr)
 
         # Construct a request to fetch the tokens.
         token_url, headers, body = client.prepare_token_request(
