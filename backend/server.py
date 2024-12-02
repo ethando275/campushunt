@@ -3,6 +3,7 @@ from database_functions.pictures import insert_picture, get_urls, remove_picture
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
 import os
+import sys
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 from auth2 import login, callback, logoutapp
@@ -144,12 +145,14 @@ def auth_google_login():
 @app.route('/login/callback')
 def auth_google_callback():
     user_info, error = callback()
+    print("Callback received - User info:", user_info, "Error:", error, file=sys.stderr)
     
     if error:
         return jsonify({"error": error}), 400
         
     if user_info:
         session['user_info'] = user_info
+        print("Session after setting user_info:", dict(session), file=sys.stderr)
         return redirect('/princeton_menu')
     
     return jsonify({"error": "Authentication failed"}), 400
@@ -165,6 +168,7 @@ def auth_google_logout():
 
 @app.route('/api/user')
 def get_user():
+    print("Current session:", dict(session), file=sys.stderr)
     if 'user_info' not in session:
         return jsonify({'isAuthenticated': False}), 401
     return jsonify({
