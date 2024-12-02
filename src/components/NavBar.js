@@ -44,6 +44,9 @@ function NavBar({ onSelectTab, selectedTab }) {
   const handleTabClick = (tab) => {
     if (tab === "Log Out") {
       handleLogout(); // Trigger logout
+    } else if (tab === "University Game Page") {
+      // Open University Game Page in a new tab
+      window.open(`/${tab.toLowerCase().replace(/ /g, "_")}`, "_blank");
     } else {
       onSelectTab(tab);
       navigate(`/${tab.toLowerCase().replace(/ /g, "_")}`); // Navigate to the selected tab

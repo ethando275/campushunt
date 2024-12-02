@@ -141,12 +141,42 @@ def edit_picture(public_id, new_latitude="", new_longitude="", new_description="
         conn.close()
 
 
+def get_random_picture():
+    conn = psycopg2.connect(db_link)
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+            SELECT URL, Coordinates, label_description, public_id 
+            FROM Princeton_pictures 
+            ORDER BY RANDOM() 
+            LIMIT 1
+        """)
+        result = cursor.fetchone()
+        if result:
+            return {
+                'url': result[0],
+                'coordinates': result[1],
+                'description': result[2],
+                'public_id': result[3]
+            }
+        return None
+    except Exception as e:
+        print(f"Error getting random picture: {e}")
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
 def main():
     # insert_picture("https://www.example.com", [40.35, -74.65], "A picture of Princeton University")
-    print_rows()
+    #print_rows()
     # for url in get_urls():
     #     print(url)
     #clear_table()
+    # Test random picture function
+    random_pic = get_random_picture()
+    if random_pic:
+        print("Random picture:", random_pic)
 
 if __name__ == "__main__":
     main()

@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify, send_file, send_from_directory, redirect
-from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture
+from flask import Flask, request, jsonify, send_file, send_from_directory, redirect, session
+from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture, get_random_picture
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
 import os
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
+from auth2 import login, callback, logoutapp
 
 app = Flask(__name__, 
     static_folder='../build',
@@ -13,10 +14,11 @@ app = Flask(__name__,
 # Configure server for production
 app.config['ENV'] = 'production'
 app.config['DEBUG'] = False
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev")
 
 # Get allowed origins from environment for local and Render
-cors_origins = os.environ.get("CORS_ORIGIN", "https://campushunt.onrender.com/")
-CORS(app, resources={r"/*": {"origins": cors_origins}})
+cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:5000,https://campushunt.onrender.com/").split(',')
+CORS(app, resources={r"/*": {"origins": cors_origins}}, supports_credentials=True)
 
 # Add explicit routes for React routes
 @app.route('/home')
@@ -26,6 +28,9 @@ CORS(app, resources={r"/*": {"origins": cors_origins}})
 @app.route('/manage_users')
 @app.route('/university_game_page')
 @app.route('/all_game_pages')
+@app.route('/princeton_menu')
+@app.route('/princeton_daily')
+@app.route('/guess-results')
 def react_routes():
     return send_from_directory(app.static_folder, 'index.html')
 
@@ -33,10 +38,10 @@ def react_routes():
 @app.route('/<path:path>')
 def serve(path):
     # List of valid React routes
-    valid_routes = ['home', 'dashboard', 'customize', 'images', 'manage_users', 'university_game_page', 'all_game_pages']
+    valid_routes = ['home', 'dashboard', 'customize', 'images', 'manage_users', 'university_game_page', 'all_game_pages', 'princeton_menu', 'princeton_daily', 'guess-results']
     
     # API endpoints should be handled by their specific routes
-    if path.startswith(('deleteImage', 'get_urls', 'editImage', 'upload')):
+    if path.startswith(('deleteImage', 'get_urls', 'editImage', 'upload', 'api/random_picture')):
         return jsonify({"error": "Not found"}), 404
     
     # Check if path is a valid route
@@ -124,6 +129,52 @@ def editImage():
     if update == "database error":
         return jsonify({"error": "Database error occurred"}), 500
     return jsonify({"success": True}), 200
+
+@app.route('/api/random_picture', methods=['GET'])
+def get_random_picture_route():
+    picture = get_random_picture()
+    if picture:
+        return jsonify(picture)
+    return jsonify({"error": "No pictures found"}), 404
+
+@app.route('/auth/google/login')
+def auth_google_login():
+    return login()
+
+@app.route('/login/callback')
+def auth_google_callback():
+    user_info, error = callback()
+    
+    if error:
+        return jsonify({"error": error}), 400
+        
+    if user_info:
+        session['user_info'] = user_info
+        return redirect('/princeton_menu')
+    
+    return jsonify({"error": "Authentication failed"}), 400
+
+@app.route('/princeton_menu')
+def princeton_menu():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/auth/google/logout')
+def auth_google_logout():
+    session.clear()
+    return jsonify({"success": True})
+
+@app.route('/api/user')
+def get_user():
+    if 'user_info' not in session:
+        return jsonify({'isAuthenticated': False}), 401
+    return jsonify({
+        'isAuthenticated': True,
+        'user': session['user_info']
+    })
+
+@app.route('/api/maps/key')
+def get_maps_key():
+    return jsonify({"apiKey": os.environ.get("GOOGLE_MAPS_API_KEY")})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
