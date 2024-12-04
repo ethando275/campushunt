@@ -1,0 +1,20 @@
+input {
+    height: 2.25rem;
+    width: 6.5rem;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.top-padding {
+    padding-top: 2rem;
+}
+
+.color-container-col {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    padding-right: 2rem;
+}

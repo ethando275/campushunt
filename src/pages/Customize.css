@@ -29,6 +29,7 @@
     flex: 1.5;
 }
 
+
 .container-col {
     display: flex;
     flex-direction: column;
@@ -38,4 +39,9 @@
 .container-row {
     display: flex;
     flex-direction: row;
+}
+
+.publish {
+    padding-top: 1rem;
+    margin-left: auto;
 }

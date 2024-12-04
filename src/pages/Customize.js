@@ -8,6 +8,7 @@ import DropDown from "../components/DropDown";
 import LogoUpload from "../components/LogoUpload";
 import ButtonSelector from "../components/ButtonSelector";
 import Preview from "../components/Preview";
+import PublishButton from "../components/PublishButton";
 import "./Customize.css";
 
 // new commit comment
@@ -55,15 +56,23 @@ const Customize = ({ onLogout }) => {
         <div className="container-col preview">
           <div>Preview</div><div className="top-padding"><Preview></Preview></div>
           <div className="container-row">
-            <div className="container-row">
-              Font
-              <ColorSelect label="Primary"></ColorSelect>
-              <ColorSelect label="Secondary"></ColorSelect>
+            <div className="container-col">
+              Color Scheme
+              <div className="container-row top-padding">
+                <ColorSelect label="Primary"></ColorSelect>
+                <ColorSelect label="Secondary"></ColorSelect>
+              </div>
             </div>
-            <div className="container-row">
-              <ColorSelect label="Primary"></ColorSelect>
-              <ColorSelect label="Secondary"></ColorSelect>
+            <div className="container-col">
+              Font Color Scheme
+              <div className="container-row top-padding">
+                <ColorSelect label="Primary"></ColorSelect>
+                <ColorSelect label="Secondary"></ColorSelect>
+              </div>
             </div>
+          </div>
+          <div className="container-row publish">
+            <PublishButton></PublishButton>
           </div>
         </div>
       </div>
