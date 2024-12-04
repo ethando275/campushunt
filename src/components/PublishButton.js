@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
-import "./ButtonSelector.css";
+import "./PublishButton.css";
 
-function ButtonSelector() {
+function PublishButton() {
 	const [selectedButton, setSelectedButton] = useState("");
 
 	const handleButtonClick = (buttonType) => {
@@ -12,22 +12,14 @@ function ButtonSelector() {
 	return (
 		<>
 			<Button
-				className="round-button"
+                className="publish-button"
 				variant={selectedButton === "round" ? "primary" : "outline-primary"} // Highlight if selected
 				onClick={() => handleButtonClick("round")}
 			>
-				Round
-			</Button>{' '}
-
-			<Button
-				className="angled-button"
-				variant={selectedButton === "angled" ? "primary" : "outline-primary"} // Highlight if selected
-				onClick={() => handleButtonClick("angled")}
-			>
-				Angled
+				Publish Changes
 			</Button>{' '}
 		</>
 	);
 }
 
-export default ButtonSelector;
+export default PublishButton;

@@ -1,13 +1,47 @@
-.right {
-    flex: 5 !important; /* Change to flex: 3 */
-    display: flex !important;
-    padding: 0px !important;
+.left {
+    display: flex;
+    flex-direction: column;
 }
 
+.right {
+    display: flex;
+    /* flex: 5 !important; /* Change to flex: 3 */
+    /* padding: 0px !important;  */
+}
+
+.top-padding {
+    padding-top: 1.5rem;
+}
+
+.divider {
+    border: 0.1rem solid #ebedee;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-bottom: 1.5rem;
+}
+
+.input {
+    flex: 1;
+}
+
+.preview {
+    flex: 1.5;
+}
+
+
 .container-col {
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
 }
 
 .container-row {
-    flex-direction: row; 
+    display: flex;
+    flex-direction: row;
+}
+
+.publish {
+    padding-top: 1rem;
+    margin-left: auto;
 }

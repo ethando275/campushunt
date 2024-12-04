@@ -169,14 +169,14 @@ def get_random_picture():
 
 def main():
     # insert_picture("https://www.example.com", [40.35, -74.65], "A picture of Princeton University")
-    #print_rows()
+    print_rows()
     # for url in get_urls():
     #     print(url)
     #clear_table()
     # Test random picture function
-    random_pic = get_random_picture()
-    if random_pic:
-        print("Random picture:", random_pic)
+    # random_pic = get_random_picture()
+    # if random_pic:
+    #     print("Random picture:", random_pic)
 
 if __name__ == "__main__":
     main()
