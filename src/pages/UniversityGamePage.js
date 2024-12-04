@@ -9,33 +9,33 @@ const UniversityGamePage = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check if user is already authenticated
+  // useEffect(() => {
+  //   // Check if user is already authenticated
 
-    const checkAuthStatus = async () => {
-      try {
-        const response = await axios.get("/api/user");
-        if (response.data.isAuthenticated) {
-          navigate("/princeton_menu");
-        } else {
-          setIsAuthenticated(false);
-          setUser(null);
-        }
-      } catch (error) {
-        setIsAuthenticated(false);
-        setUser(null);
-      }
-    };
+  //   const checkAuthStatus = async () => {
+  //     try {
+  //       const response = await axios.get("/api/user");
+  //       if (response.data.isAuthenticated) {
+  //         navigate("/princeton_menu");
+  //       } else {
+  //         setIsAuthenticated(false);
+  //         setUser(null);
+  //       }
+  //     } catch (error) {
+  //       setIsAuthenticated(false);
+  //       setUser(null);
+  //     }
+  //   };
 
-    // USE LOCALLY
-    // const checkAuthStatus = async () => {
-    //     setIsAuthenticated(true);
-    //     setUser("winsice");
-    //     navigate("/princeton_menu");
+  //   // USE LOCALLY
+  //   // const checkAuthStatus = async () => {
+  //   //     setIsAuthenticated(true);
+  //   //     setUser("winsice");
+  //   //     navigate("/princeton_menu");
 
-    // };
+  //   // };
 
-  });
+  // });
 
   const handleLogin = () => {
     // Redirect to Google login
