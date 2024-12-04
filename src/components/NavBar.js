@@ -68,7 +68,7 @@ function NavBar({ onSelectTab, selectedTab }) {
             // Handle the click event for the entire tab (li element)
             onClick={() => handleTabClick(tab)}
           >
-            <img className="logo" src={tabLogos[index]} alt={`${tab} logo`} />
+            <img className="campus-hunt-logo" src={tabLogos[index]} alt={`${tab} logo`} />
             <span className="nav-link">{tab}</span>
           </li>
         ))}
