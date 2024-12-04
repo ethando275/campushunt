@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axiosInstance";
+import logo from "../../assets/logo.png";
 import "./PrincetonMenu.css";
 
 const PrincetonMenu = () => {
@@ -25,6 +26,13 @@ const PrincetonMenu = () => {
 
     checkAuth();
   }, []);
+
+  // USE LOCALLY
+//   const checkAuth = async () => {
+//     setUser("winsice")
+//   };
+// }, []);
+
 
   const handleLogout = async () => {
     try {
@@ -65,11 +73,15 @@ const PrincetonMenu = () => {
           Log Out
         </button>
       </div>
-      <div className="content-container">
-        <h1>Welcome to Princeton Hunt, {emailHandle}!</h1>
-        <button className="play-button" onClick={handlePlayClick}>
-          Play Now
-        </button>
+      <div className="content-container background-overlay">
+        <div className="welcome-container">
+          <img src={logo} alt="school"/>
+          <h1>Welcome to Princeton Hunt, {emailHandle}!</h1>
+          <p>Think you have what it takes to spot a Princeton landmark? Test your skills and land yourself on top of the leaderboard!</p>
+          <button className="play-button" onClick={handlePlayClick}>
+            PLAY NOW
+          </button>
+        </div>
       </div>
     </div>
   );
