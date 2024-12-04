@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./UniversityGamePage.css";
 import tigerspot from "../assets/home.png";
 import axios from "../api/axiosInstance";
@@ -7,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const UniversityGamePage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   // Check if user is already authenticated
