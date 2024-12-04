@@ -11,6 +11,7 @@ const UniversityGamePage = () => {
 
   useEffect(() => {
     // Check if user is already authenticated
+
     const checkAuthStatus = async () => {
       try {
         const response = await axios.get("/api/user");
@@ -26,12 +27,23 @@ const UniversityGamePage = () => {
       }
     };
 
-    checkAuthStatus();
-  }, [navigate]);
+    // USE LOCALLY
+    // const checkAuthStatus = async () => {
+    //     setIsAuthenticated(true);
+    //     setUser("winsice");
+    //     navigate("/princeton_menu");
+
+    // };
+
+  });
 
   const handleLogin = () => {
     // Redirect to Google login
     window.location.href = "/auth/google/login";
+
+    // USE LOCALLY
+    // window.location.href = "/princeton_menu";
+
   };
 
   const handleLogout = async () => {
