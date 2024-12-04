@@ -40,11 +40,10 @@ const UniversityGamePage = () => {
 
   const handleLogin = () => {
     // Redirect to Google login
-    // window.location.href = "/auth/google/login";
+    window.location.href = "/auth/google/login";
 
     // USE LOCALLY
-    window.location.href = "/princeton_menu";
-
+    // window.location.href = "/princeton_menu";
   };
 
   const handleLogout = async () => {
