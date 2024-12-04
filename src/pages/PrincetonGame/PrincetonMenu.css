@@ -76,10 +76,9 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 1rem; /* Reduce padding to make the container smaller */
-  height: auto; /* Allow the container to adjust dynamically */
-  width: 70vw;
-  max-height: 65vh; /* Add a maximum height constraint */
+  padding: 1rem;
+  height: auto; 
+  max-height: 65vh; 
 }
 
 .content-container h1 {
@@ -90,10 +89,10 @@
   padding-bottom: 1.5rem;
 }
 
-p {
+.welcome-container p {
   font-size: 1.25rem;
-  padding-left: 10rem;
-  padding-right: 10rem;
+  padding-left: 20rem;
+  padding-right: 20rem;
 }
 
 .background-overlay {
@@ -110,7 +109,7 @@ p {
   text-align: center;
 }
 
-img {
+.welcome-container img {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   max-height: 20vh;
