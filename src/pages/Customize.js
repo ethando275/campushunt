@@ -17,16 +17,16 @@ import "./Customize.css";
 const Customize = ({ onLogout }) => {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("Customize");
-  const [customizations, setCustomizations] = useState({
-    gameTitle: "",
-    logoLink: "",
-    fontSelected: "",
-    shareMessage: "",
-    streakEmoji: "",
-    buttonStyle: "",
-    colorScheme: { primary: "#ffffff", secondary: "#000000" },
-    fontColorScheme: { primary: "#000000", secondary: "#ffffff" },
-  });
+  // const [customizations, setCustomizations] = useState({
+  //   gameTitle: "",
+  //   logoLink: "",
+  //   fontSelected: "",
+  //   shareMessage: "",
+  //   streakEmoji: "",
+  //   buttonStyle: "",
+  //   colorScheme: { primary: "#ffffff", secondary: "#000000" },
+  //   fontColorScheme: { primary: "#000000", secondary: "#ffffff" },
+  // });
   
 
   useEffect(() => {
