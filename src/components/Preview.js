@@ -1,5 +1,4 @@
-// import React, { useState } from "react";
-import "./Preview.css";
+// import React, { useState } from "react"
 import Logo from "../assets/logo.png";
 import Home from "../assets/home.png";
 import QuestionMark from "../assets/questionmark.png";
@@ -7,9 +6,9 @@ import Requests from "../assets/requests.png";
 import Trophy from "../assets/trophy.png";
 import Team from "../assets/team.png";
 import LogOut from "../assets/logout.png";
+import "./Preview.css";
 
 function Preview() {
-
 	return (
 		<>
     <nav id="navbar">
@@ -18,8 +17,6 @@ function Preview() {
           ><img
             src={Home}
             alt="Home Page"
-            width="150"
-            height="50"
         /></a>
       </div>
       <div className="nav-icons">
