@@ -79,6 +79,7 @@
   padding: 1rem;
   height: auto; 
   max-height: 65vh; 
+  width: 80vw;
 }
 
 .content-container h1 {
@@ -91,8 +92,8 @@
 
 .welcome-container p {
   font-size: 1.25rem;
-  padding-left: 15rem;
-  padding-right: 15rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 
 .background-overlay {
