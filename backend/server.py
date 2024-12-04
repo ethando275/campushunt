@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, send_file, send_from_directory, redirect, session
 from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture, get_random_picture
+from database_functions.customization import get, get_customizations
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
 import os
@@ -39,7 +40,7 @@ if os.environ.get('FLASK_ENV') == 'production':
     app.wsgi_app = ForceHTTPS(app.wsgi_app)
 
 # Get allowed origins from environment for local and Render
-cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:5000,https://campushunt.onrender.com/").split(',')
+cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:5000,http://127.0.0.1:5000,https://campushunt.onrender.com/").split(',')
 CORS(app, resources={r"/*": {"origins": cors_origins}}, supports_credentials=True)
 
 # Add explicit routes for React routes
@@ -95,6 +96,12 @@ def deleteImage():
 def get_urls_route():
     urls = get_urls()
     return jsonify(urls), 200
+
+@app.route('/get_customizations', methods=['GET'])
+def get_customizations_route():
+    print("GET /get_customizations hit")
+    data = get_customizations()
+    return jsonify(data), 200
 
 @app.route('/upload', methods=['POST'])
 def upload_files():
@@ -200,6 +207,17 @@ def get_user():
 @app.route('/api/maps/key')
 def get_maps_key():
     return jsonify({"apiKey": os.environ.get("GOOGLE_MAPS_API_KEY")})
+
+@app.route('/get', methods=['POST'])
+def getCustom():
+    req_data = request.get_json()
+    column_name = req_data.get('column_name') if req_data else None
+    if not column_name:
+        return jsonify({"error": "column_name is required"}), 400
+
+    data = get(column_name)
+    return jsonify(data)
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

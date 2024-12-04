@@ -35,9 +35,68 @@ def print_rows():
         cursor.close()
         conn.close()
 
+def insert_customization(game_title, logo_link, font_selected, share_message, streak_emoji, button_style, color_scheme, font_color_scheme):
+    conn = psycopg2.connect(db_link)
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            '''
+            INSERT INTO Princeton_customization (game_title, logo_link, font_selected, share_message, streak_emoji, button_style, color_scheme, font_color_scheme)
+            VALUES (%s, %s, %s, %s, %s, %s::int[], %s::varchar[], %s::varchar[]);
+            ''',
+            (game_title, logo_link, font_selected, share_message, streak_emoji, button_style, color_scheme, font_color_scheme)
+        )
+        conn.commit()
+        print("Row inserted successfully.")
+    except Exception as e:
+        print("database error")
+        conn.rollback()
+    finally:
+        cursor.close()
+        conn.close()
+
+def get_customizations():
+    conn = psycopg2.connect(db_link)
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute(f"SELECT * FROM Princeton_customization;")
+        row = cursor.fetchall()
+
+        return row[0]
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
+
+    finally:
+        cursor.close()
+        conn.close()
+
+def get(column_name):
+    conn = psycopg2.connect(db_link)
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute(f"SELECT {column_name} FROM Princeton_customization;")
+        row = cursor.fetchall()
+
+        return row[0][0]
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
+
+    finally:
+        cursor.close()
+        conn.close()
+
 def main():
-    create_table()
-    print_rows()
+    print(get_customizations())
+    # create_table()
+    # insert_customization("Tiger Spot", "https://res.cloudinary.com/dkouv3voe/image/upload/v1733303847/logo_c3rlcw.png", "Arial", "Nice!", "fire", [0, 1], ["#e77500", "#ffbd59"], ["#000000", "#ffffff"])
+    # print_rows()
 
 if __name__ == "__main__":
     main()

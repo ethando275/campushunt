@@ -9,6 +9,7 @@ import LogoUpload from "../components/LogoUpload";
 import ButtonSelector from "../components/ButtonSelector";
 import Preview from "../components/Preview";
 import PublishButton from "../components/PublishButton";
+import axiosInstance from "../api/axiosInstance";
 import "./Customize.css";
 
 // new commit comment
@@ -16,10 +17,23 @@ import "./Customize.css";
 const Customize = ({ onLogout }) => {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("Customize");
+  const [customizations, setCustomizations] = useState({
+    gameTitle: "",
+    logoLink: "",
+    fontSelected: "",
+    shareMessage: "",
+    streakEmoji: "",
+    buttonStyle: "",
+    colorScheme: { primary: "#ffffff", secondary: "#000000" },
+    fontColorScheme: { primary: "#000000", secondary: "#ffffff" },
+  });
+  
 
   useEffect(() => {
     setSelectedTab("Customize");
+    loadCustoms();
   }, []); // Reset selectedTab when the component mounts
+
 
   const handleLogout = () => {
     onLogout();
@@ -33,6 +47,15 @@ const Customize = ({ onLogout }) => {
       setSelectedTab(tab);
     }
   };
+
+  const loadCustoms = async () => {
+    try {
+        const response = await axiosInstance.get('https://campushunt.onrender.com/get_customizations');
+        console.log('Customizations:', response.data);
+    } catch (error) {
+        console.error('Error fetching customizations:', error);
+    }
+};
 
   return (
     <div className="screen">
@@ -72,7 +95,7 @@ const Customize = ({ onLogout }) => {
             </div>
           </div>
           <div className="container-row publish">
-            <PublishButton></PublishButton>
+            <PublishButton onClick={loadCustoms}></PublishButton>
           </div>
         </div>
       </div>
