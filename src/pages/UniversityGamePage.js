@@ -1,49 +1,49 @@
-// import React, { useEffect, useState } from "react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UniversityGamePage.css";
 import tigerspot from "../assets/home.png";
 import axios from "../api/axiosInstance";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UniversityGamePage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // Check if user is already authenticated
+  useEffect(() => {
+    // Check if user is already authenticated
+    const checkAuthStatus = async () => {
+      try {
+        const response = await axios.get("/api/user");
+        if (response.data.isAuthenticated) {
+          setIsAuthenticated(true);
+          setUser(response.data.user);
+          navigate("/princeton_menu");
+        } else {
+          setIsAuthenticated(false);
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Auth check error:", error);
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    };
 
-  //   const checkAuthStatus = async () => {
-  //     try {
-  //       const response = await axios.get("/api/user");
-  //       if (response.data.isAuthenticated) {
-  //         navigate("/princeton_menu");
-  //       } else {
-  //         setIsAuthenticated(false);
-  //         setUser(null);
-  //       }
-  //     } catch (error) {
-  //       setIsAuthenticated(false);
-  //       setUser(null);
-  //     }
-  //   };
-
-  //   // USE LOCALLY
-  //   // const checkAuthStatus = async () => {
-  //   //     setIsAuthenticated(true);
-  //   //     setUser("winsice");
-  //   //     navigate("/princeton_menu");
-
-  //   // };
-
-  // });
+    checkAuthStatus();
+  }, [navigate]);
 
   const handleLogin = () => {
-    // Redirect to Google login
-    window.location.href = "/auth/google/login";
+    // Check if we're running locally
+    const isLocalhost =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
 
-    // USE LOCALLY
-    // window.location.href = "/princeton_menu";
+    // Use the appropriate URL for login
+    const loginUrl = isLocalhost
+      ? "http://localhost:5000/auth/google/login"
+      : "/auth/google/login";
+
+    window.location.href = loginUrl;
   };
 
   const handleLogout = async () => {

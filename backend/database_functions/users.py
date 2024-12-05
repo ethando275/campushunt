@@ -38,25 +38,55 @@ def print_rows():
         conn.close()
 
 def add_user(username):
-    conn = psycopg2.connect(db_link)
-    cursor = conn.cursor()
-
+    conn = None
+    cursor = None
     try:
+        conn = psycopg2.connect(db_link)
+        cursor = conn.cursor()
+        
+        # First check if the table exists
+        cursor.execute("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables 
+                WHERE table_name = 'princeton_users'
+            );
+        """)
+        table_exists = cursor.fetchone()[0]
+        
+        if not table_exists:
+            print("Table doesn't exist, creating it...")
+            create_table()
+            
+        # Then try to add the user
         cursor.execute(
             '''
             INSERT INTO Princeton_users (username)
-            VALUES (%s);
+            VALUES (%s)
+            ON CONFLICT (username) DO NOTHING
+            RETURNING username;
             ''',
             (username,)
         )
+        result = cursor.fetchone()
         conn.commit()
-        print("User inserted successfully.")
+        
+        if result:
+            print(f"User {username} inserted successfully.")
+            return True
+        else:
+            print(f"User {username} already exists.")
+            return False
+            
     except Exception as e:
-        print("database error")
-        conn.rollback()
+        print(f"Database error in add_user: {str(e)}")
+        if conn:
+            conn.rollback()
+        return False
     finally:
-        cursor.close()
-        conn.close()
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 def update_user(username, total_points, daily_points, distance, played, streak):
     conn = psycopg2.connect(db_link)
