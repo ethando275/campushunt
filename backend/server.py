@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, send_file, send_from_directory, redirect, session
 from database_functions.pictures import insert_picture, get_urls, remove_picture, edit_picture, get_random_picture
 from database_functions.customization import get, get_customizations
+from database_functions.users import add_user
 from cloudinaryconfig import cloudinary
 import cloudinary.uploader
 import os
@@ -172,18 +173,43 @@ def auth_google_login():
 
 @app.route('/login/callback')
 def auth_google_callback():
-    user_info, error = callback()
-    print("Callback received - User info:", user_info, "Error:", error, file=sys.stderr)
-    
-    if error:
-        return jsonify({"error": error}), 400
+    try:
+        print("Starting Google callback...", file=sys.stderr)
+        # Get user info and error from callback
+        user_info, error = callback()
+        print(f"Callback returned - User info: {user_info}, Error: {error}", file=sys.stderr)
         
-    if user_info:
-        session['user_info'] = user_info
-        print("Session after setting user_info:", dict(session), file=sys.stderr)
-        return redirect('/princeton_menu')
-    
-    return jsonify({"error": "Authentication failed"}), 400
+        if error:
+            print(f"Error in callback: {error}", file=sys.stderr)
+            return redirect("/university_game_page")
+            
+        if user_info and 'email' in user_info:
+            print(f"Attempting to add user with email: {user_info['email']}", file=sys.stderr)
+            # Add user to database if they don't exist
+            try:
+                success = add_user(user_info['email'])
+                if success:
+                    print(f"Successfully added user: {user_info['email']}", file=sys.stderr)
+                else:
+                    print(f"User already exists: {user_info['email']}", file=sys.stderr)
+            except Exception as e:
+                print(f"Error adding user to database: {str(e)}", file=sys.stderr)
+            
+            # Set session variables
+            session['user'] = {
+                'email': user_info['email'],
+                'name': user_info.get('name', ''),
+                'picture': user_info.get('picture', '')
+            }
+            session.permanent = True
+            print(f"Session set for user: {user_info['email']}", file=sys.stderr)
+            return redirect("/princeton_menu")
+            
+        print("No valid user info received", file=sys.stderr)
+        return redirect("/university_game_page")
+    except Exception as e:
+        print(f"Unexpected error in callback: {str(e)}", file=sys.stderr)
+        return redirect("/university_game_page")
 
 @app.route('/princeton_menu')
 def princeton_menu():
@@ -197,11 +223,11 @@ def auth_google_logout():
 @app.route('/api/user')
 def get_user():
     print("Current session:", dict(session), file=sys.stderr)
-    if 'user_info' not in session:
+    if 'user' not in session:
         return jsonify({'isAuthenticated': False}), 401
     return jsonify({
         'isAuthenticated': True,
-        'user': session['user_info']
+        'user': session['user']
     })
 
 @app.route('/api/maps/key')
