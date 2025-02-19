@@ -22,7 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# databaase
-# database_link.py
-# .env
-# cloudinary_config.py
+databaase
+database_link.py
+.env
+cloudinary_config.py
