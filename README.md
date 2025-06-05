@@ -36,12 +36,6 @@ CampusHunt serves dual purposes:
 1. **Student Engagement**: Gamified platform for current students to rediscover their campus
 2. **Marketing Tool**: Interactive showcase for universities to attract prospective students
 
-## Future Development
-
-- AR-based challenges
-- Personalized recommendations using machine learning
-- Expansion to city-wide exploration (TownHunt/CityHunt)
-- Enhanced analytics for deeper user insights
 
 ## Academic Context
 
